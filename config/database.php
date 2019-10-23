@@ -104,7 +104,7 @@ return [
             'unix_socket' => env('DB2_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => '',
+            'prefix' => 'yay_',
             'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
