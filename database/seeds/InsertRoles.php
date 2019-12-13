@@ -13,6 +13,7 @@ class InsertRoles extends Seeder
     public function run()
     {
         Role::create(['name' => 'Admin']);
+        Role::create(['name' => 'Moderator']);
         Role::create(['name' => 'Contributor']);
     }
 }
