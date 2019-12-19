@@ -19,6 +19,11 @@ Route::get('/', function () {
     ]);
 });
 
-Auth::routes();
+//Auth::routes();
+Route::namespace ('Auth', function () {
+    Route::get('login')->name('login')->uses('LoginController@showLoginForm')->middleware('guest');
+    Route::post('login')->name('login.attempt')->uses('LoginController@login')->middleware('guest');
+    Route::post('logout')->name('logout')->uses('LoginController@logout');
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
