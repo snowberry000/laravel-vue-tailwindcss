@@ -20,10 +20,19 @@ Route::get('/', function () {
 });
 
 //Auth::routes();
-Route::namespace ('Auth', function () {
-    Route::get('login')->name('login')->uses('LoginController@showLoginForm')->middleware('guest');
-    Route::post('login')->name('login.attempt')->uses('LoginController@login')->middleware('guest');
+Route::namespace ('Auth')->group(function () {
+    Route::middleware('guest')->group(function () {
+        Route::get('login')->uses('LoginController@showLoginForm')->name('login');
+        Route::post('login')->uses('LoginController@login')->name('login.attempt');
+        Route::get('password/reset')->uses('ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    });
+
     Route::post('logout')->name('logout')->uses('LoginController@logout');
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
+
+// $this->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+// $this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+// $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+// $this->post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
