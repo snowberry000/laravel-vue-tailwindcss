@@ -15,9 +15,11 @@ require("laravel-mix-purgecss");
  */
 
 mix.webpackConfig({
+    output: { chunkFilename: "js/[name].[contenthash].js" },
     resolve: {
         alias: {
-            "@": path.resolve(__dirname, "resources/js/")
+            vue$: "vue/dist/vue.runtime.js",
+            "@": path.resolve("resources/js")
         }
     }
 })
