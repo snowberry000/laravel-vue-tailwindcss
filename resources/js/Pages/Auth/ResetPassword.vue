@@ -20,29 +20,12 @@
                     label="Password"
                     type="password"
                 />
-                <label
-                    class="mt-5 select-none flex items-center"
-                    for="remember"
+                <loading-button
+                    :loading="sending"
+                    class="btn-blue mt-5"
+                    type="submit"
+                    >Reset Password</loading-button
                 >
-                    <input
-                        id="remember"
-                        v-model="form.remember"
-                        class="mr-1"
-                        type="checkbox"
-                    />
-                    <span class="text-sm">Remember Me</span>
-                </label>
-                <div class="px-10 py-5 flex justify-between items-center">
-                    <loading-button
-                        :loading="sending"
-                        class="btn-blue"
-                        type="submit"
-                        >Login</loading-button
-                    >
-                    <inertia-link :href="route('password.request')"
-                        >Reset Password</inertia-link
-                    >
-                </div>
             </form>
         </div>
     </div>
@@ -54,22 +37,22 @@ import Logo from "@/Shared/Logo";
 import TextInput from "@/Shared/TextInput";
 
 export default {
-    metaInfo: { title: "Login" },
+    metaInfo: { title: "Reset Password" },
     components: {
         LoadingButton,
         Logo,
         TextInput
     },
     props: {
-        errors: Object
+        errors: Object,
+        token: String
     },
     data() {
         return {
             sending: false,
             form: {
                 email: null,
-                password: null,
-                remember: null
+                password: null
             }
         };
     },
@@ -77,15 +60,12 @@ export default {
         submit() {
             this.sending = true;
             this.$inertia
-                .post(this.route("login.attempt"), {
+                .post(this.route("password.update"), {
                     email: this.form.email,
                     password: this.form.password,
-                    remember: this.form.remember
+                    token: this.token
                 })
-                .then(() => {
-                    this.sending = false;
-                    this.form.password = null;
-                });
+                .then(() => (this.sending = false));
         }
     }
 };
