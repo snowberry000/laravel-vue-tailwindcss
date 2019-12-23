@@ -59,6 +59,7 @@ class ImportUsersCommand extends Command
                     $import->created_at = new Carbon($user->registered_time);
                     $import->email_verified_at = $user->email_confirmed ? new Carbon($user->registered_time) : null;
                     $import->save();
+                    $import->assignRole('Contributor');
                 }
             });
         Log::info('Succesfully ran user import script!');
