@@ -41,20 +41,17 @@ class AppServiceProvider extends ServiceProvider
                 return [
                     'user' => Auth::user() ? [
                         'id' => Auth::user()->id,
-                        'first_name' => Auth::user()->first_name,
-                        'last_name' => Auth::user()->last_name,
+                        'uid' => Auth::user()->uid,
+                        'first_name' => Auth::user()->name,
                         'email' => Auth::user()->email,
                         'role' => Auth::user()->role,
-                        'account' => [
-                            'id' => Auth::user()->account->id,
-                            'name' => Auth::user()->account->name,
-                        ],
                     ] : null,
                 ];
             },
             'flash' => function () {
                 return [
                     'success' => Session::get('success'),
+                    'status' => Session::get('status'),
                 ];
             },
             'errors' => function () {
