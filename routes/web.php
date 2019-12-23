@@ -13,21 +13,29 @@
 
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Index', [
-        'data' => 'fuck',
-    ]);
-});
-
 //Auth::routes();
 Route::namespace ('Auth')->group(function () {
     Route::middleware('guest')->group(function () {
         Route::get('login')->uses('LoginController@showLoginForm')->name('login');
         Route::post('login')->uses('LoginController@login')->name('login.attempt');
         Route::get('password/reset')->uses('ForgotPasswordController@showLinkRequestForm')->name('password.request');
+        Route::post('password/email')->uses('ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+        Route::get('password/reset/{token}')->uses('ResetPasswordController@showResetForm')->name('password.reset');
+        Route::post('password/reset')->uses('ResetPasswordController@reset')->name('password.update');
     });
 
     Route::post('logout')->name('logout')->uses('LoginController@logout');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/downloads')->uses('DownloadController@index')->name('downloads.show');
+
+    Route::get('/', function () {
+        return Inertia::render('Index', [
+            'data' => 'fuck',
+        ]);
+    });
+
 });
 
 //Route::get('/home', 'HomeController@index')->name('home');
