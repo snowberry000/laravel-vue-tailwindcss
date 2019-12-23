@@ -1,9 +1,7 @@
 <template>
-
-  <div class="hello">
-      Hello
-  </div>
-
+    <div class="hello">
+        Hello
+    </div>
 </template>
 
 <script>
@@ -14,6 +12,3 @@ export default {
     metaInfo: { title: "Index" }
 };
 </script>
-
-<style>
-</style>
