@@ -6,7 +6,7 @@ use App\Download;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class downloadImportController extends Controller
+class DownloadImportController extends Controller
 {
 
     protected $apiKeys = [
