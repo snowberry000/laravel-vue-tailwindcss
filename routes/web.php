@@ -11,8 +11,6 @@
 |
  */
 
-use Inertia\Inertia;
-
 //Auth::routes();
 Route::namespace ('Auth')->group(function () {
     Route::middleware('guest')->group(function () {
@@ -28,13 +26,9 @@ Route::namespace ('Auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/downloads')->uses('DownloadController@index')->name('downloads.show');
+    Route::get('/downloads/{date?}')->uses('DownloadController@index')->name('downloads.show');
 
-    Route::get('/', function () {
-        return Inertia::render('Index', [
-            'data' => 'fuck',
-        ]);
-    });
+    Route::get('/')->uses('DashboardController@index')->name('home');
 
 });
 

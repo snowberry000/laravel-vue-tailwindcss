@@ -54,6 +54,7 @@ class ImportUsersCommand extends Command
                     $import = new User();
                     $import->uid = $user->uid;
                     $import->name = $user->name;
+                    $import->username = $user->username;
                     $import->email = $user->email;
                     $import->password = 'reset';
                     $import->created_at = new Carbon($user->registered_time);

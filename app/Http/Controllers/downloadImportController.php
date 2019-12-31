@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Download;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -20,7 +21,7 @@ class downloadImportController extends Controller
         //dd($request->payloads);
         $validated = $request->validate([
             'username' => "required|string|max:255|in:{$partner}",
-            'payload.*' => 'required|array|min:1|max:10',
+            'payload.*' => 'required|array|min:1|max:500',
             'payload.*.image_id' => 'required|integer',
             'payload.*.value' => 'required|integer',
             'payload.*.created_at' => 'required|date',
@@ -29,17 +30,30 @@ class downloadImportController extends Controller
         $users = $this->getUsersForImages($images->pluck('image_id'));
         $users = $users->keyBy('id');
         $images->transform(function ($image) use ($partner, $users) {
+            $image['original_id'] = $image['id'];
             unset($image['id']);
             unset($image['updated_at']);
             unset($image['user_id']);
+            unset($image['license']);
             $image['client'] = $partner;
-            $image['uid'] = $users->get($image['image_id'])->id;
+            $image['uid'] = $users->get($image['image_id']) ? $users->get($image['image_id'])->uid : null;
+            $image['fileid'] = $users->get($image['image_id']) ? $users->get($image['image_id'])->fileid : null;
             return $image;
 
         });
-        $images->forget('id');
+        $images->each(function ($item) {
+            $download = Download::firstOrNew(
+                [
+                    'uid' => $item['uid'],
+                    'client' => $item['client'],
+                    'original_id' => $item['original_id'],
+                ],
+                $item
+            );
+            $download->save();
+        });
         //dd($users);
-        dd($images);
+        //dd($images);
         return ($images->all());
         //dd($request->scripts);
 
@@ -61,6 +75,6 @@ class downloadImportController extends Controller
 
     protected function getUsersForImages($ids)
     {
-        return DB::connection('db1')->table('media')->select('id', 'uid')->whereIn('id', $ids)->get();
+        return DB::connection('db1')->table('media')->select('id', 'uid', 'fileid')->whereIn('id', $ids)->get();
     }
 }

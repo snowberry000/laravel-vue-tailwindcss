@@ -9,7 +9,7 @@
     @routes
 </head>
 
-<body class="font-sans leading-none text-grey-darkest antialiased">
+<body class="font-sans leading-none text-grey-darkest antialiased bg-gray-200">
     @inertia
 </body>
 

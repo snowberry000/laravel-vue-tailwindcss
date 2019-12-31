@@ -17,12 +17,13 @@ class CreateDownloadsTable extends Migration
             $table->bigIncrements('id');
             $table->string('original_id')->description('Original download id.');
             $table->unsignedBigInteger('image_id');
-            $table->unsignedBigInteger('uid');
-            $table->string('partner');
+            $table->unsignedBigInteger('uid')->nullable();
+            $table->string('client');
             $table->unsignedInteger('value')->default(0); // user get's half of that or maybe different stuff will happen here.
             $table->dateTime('paid_at')->nullable()->default(null);
             $table->timestamps(); // reuse created_at for showing the purchase date.
-            $table->index(['image_id', 'uid']);
+            $table->index(['image_id', 'uid', 'client']);
+            $table->index(['image_id', 'client', 'original_id']);
         });
     }
 
