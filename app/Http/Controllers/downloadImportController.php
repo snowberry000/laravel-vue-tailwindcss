@@ -15,7 +15,7 @@ class downloadImportController extends Controller
         'pond5' => '1d8a7f7d-d8de-484a-a22a-6b604382e76f',
     ];
 
-    public function __invoke(Request $request)
+    public function index(Request $request)
     {
         $partner = $this->checkApiKeys($request->header('Authorization'));
         //dd($request->payloads);
