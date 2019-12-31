@@ -70,10 +70,10 @@ export default {
     layout: Layout,
     computed: {
         formattedDate: function() {
-            return moment(this.date).format("MMMM YYYY");
+            return this.moment(this.date).format("MMMM YYYY");
         },
         formattedDateSlug: function() {
-            return moment(this.date).format("YYYY-MM");
+            return this.moment(this.date).format("YYYY-MM");
         }
     },
     metaInfo: function() {

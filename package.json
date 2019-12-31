@@ -30,6 +30,7 @@
         "@inertiajs/inertia-vue": "^0.1.2",
         "chart.js": "^2.9.3",
         "laravel-mix-purgecss": "^4.2.0",
+        "moment": "^2.24.0",
         "portal-vue": "^2.1.6",
         "tailwindcss": "^1.1.4",
         "vue-chartjs": "^3.5.0",
