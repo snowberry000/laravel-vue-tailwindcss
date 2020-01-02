@@ -27,8 +27,8 @@ Route::namespace ('Auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/downloads/{date?}')->uses('DownloadController@index')->name('downloads.show');
-
     Route::get('/')->uses('DashboardController@index')->name('home');
+    Route::post('/payout')->uses('PayoutController@create')->name('payout.create');
 
 });
 

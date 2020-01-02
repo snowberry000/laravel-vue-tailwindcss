@@ -1,11 +1,7 @@
 <template>
     <div class="w-full">
-        <card class="w-100 bg-blue-500 text-white font-bold">
-            We are still moving the data so earnings and payout information will
-            change.
-        </card>
         <div class="w-full md:flex items-start">
-            <card title="Earnings" class="w-full md:w-1/3">
+            <card title="Earnings" class="w-full md:w-1/3" v-if="!payout">
                 <table class="table table-auto w-full text-left">
                     <thead>
                         <tr class="border-b">
@@ -33,10 +29,13 @@
                     </tbody>
                 </table>
                 <a
-                    href="#"
+                    @click="payout = true"
                     class="block border border-blue-500 text-blue-500 uppercase text-blue-500 rounded text-center p-5 m-5"
                     >Request Payout</a
                 >
+            </card>
+            <card title="Request Payout" class="w-full md:w-1/3" v-else>
+                <payout-form @success="payout = false" :available="available" />
             </card>
             <card title="Recent Downloads" class="w-full md:w-2/3">
                 <a
@@ -46,7 +45,7 @@
                 >
                 <table
                     class="table w-full table-fixed text-left"
-                    v-if="downloads"
+                    v-if="downloads.length != 0"
                 >
                     <thead>
                         <tr>
@@ -92,17 +91,24 @@
 <script>
 import Layout from "@/components/Layout";
 import Card from "@/Shared/Card";
+import PayoutForm from "@/Shared/PayoutForm";
 export default {
     layout: Layout,
     metaInfo: { title: "Index" },
     components: {
-        Card
+        Card,
+        PayoutForm
     },
     props: {
         total: Object,
         last30: Object,
         downloads: Array,
         available: Object
+    },
+    data: function() {
+        return {
+            payout: false
+        };
     }
 };
 </script>

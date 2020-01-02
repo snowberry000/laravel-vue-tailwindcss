@@ -57,7 +57,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'post@yayimages.com'),
-        'name' => env('MAIL_FROM_NAME', 'YAYMICRO'),
+        'name' => env('MAIL_FROM_NAME', 'Yayimages'),
     ],
 
     /*

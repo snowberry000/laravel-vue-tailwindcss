@@ -35,4 +35,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function payouts()
+    {
+        return $this->hasMany('App\Payout', 'uid', 'uid');
+    }
+
+    public function downloads()
+    {
+
+        return $this->hasMany('App\Download', 'uid', 'uid');
+    }
+
+    public function unpaidDownloads()
+    {
+        return $this->hasMany('App\Download', 'uid', 'uid')->whereNull('payout_id');
+    }
 }
