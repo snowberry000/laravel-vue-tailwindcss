@@ -6,7 +6,7 @@
                 maximum-view="month"
                 format="MMMM yyyy"
                 inline
-                v-model="date"
+                v-model="currentDate"
                 @input="salesForDate()"
             />
         </card>
@@ -63,17 +63,17 @@ import Datepicker from "vuejs-datepicker";
 export default {
     data: function() {
         return {
-            //date: new Date(),
+            currentDate: this.date,
             sending: false
         };
     },
     layout: Layout,
     computed: {
         formattedDate: function() {
-            return this.moment(this.date).format("MMMM YYYY");
+            return this.moment(this.currentDate).format("MMMM YYYY");
         },
         formattedDateSlug: function() {
-            return this.moment(this.date).format("YYYY-MM");
+            return this.moment(this.currentDate).format("YYYY-MM");
         }
     },
     metaInfo: function() {
