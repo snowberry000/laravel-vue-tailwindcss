@@ -8,8 +8,7 @@
                 Minimum payout amount is $30.
             </p>
             <p>
-                We can payout to your Paypal account and or Skrill (previously
-                known as moneybookers) account.
+                We can payout to your Paypal account.
             </p>
         </div>
         <div class="my-5">
