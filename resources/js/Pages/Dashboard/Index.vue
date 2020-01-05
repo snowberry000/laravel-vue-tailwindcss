@@ -6,24 +6,20 @@
                     <thead>
                         <tr class="border-b">
                             <th></th>
-                            <th>Count</th>
                             <th>Amount</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="border-b">
                             <td class="py-2">Lifetime Earnings</td>
-                            <td>{{ total.count }}</td>
                             <td class="py-2">$ {{ total.value }}</td>
                         </tr>
                         <tr class="border-b my-2">
                             <td class="py-2">Last 30 days</td>
-                            <td>{{ last30.count }}</td>
                             <td class="py-2">$ {{ last30.value }}</td>
                         </tr>
                         <tr class="border-b my-2">
                             <td class="py-2">Earnings Available</td>
-                            <td>{{ available.count }}</td>
                             <td class="py-2">$ {{ available.value }}</td>
                         </tr>
                     </tbody>
@@ -45,7 +41,7 @@
                 >
                 <table
                     class="table w-full table-fixed text-left"
-                    v-if="downloads.length != 0"
+                    v-if="downloads.items.length || downloads.promo > 0"
                 >
                     <thead>
                         <tr>
@@ -57,7 +53,15 @@
 
                     <tbody>
                         <tr
-                            v-for="download in downloads"
+                            class="border-t border-blue-300"
+                            v-if="downloads.promo > 0"
+                        >
+                            <td class="py-2">Promotion</td>
+                            <td class="py-2"></td>
+                            <td class="py-2">$ {{ downloads.promo }}</td>
+                        </tr>
+                        <tr
+                            v-for="download in downloads.items"
                             :key="download.id"
                             class="border-t border-blue-300 "
                         >

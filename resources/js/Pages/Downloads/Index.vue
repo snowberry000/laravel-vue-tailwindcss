@@ -14,7 +14,10 @@
             :title="'Image Sales ' + formattedDate"
             class="w-full md:w-2/3 lg:w-3/4"
         >
-            <table class="table w-full table-fixed text-left" v-if="downloads">
+            <table
+                class="table w-full table-fixed text-left"
+                v-if="downloads.items.length || downloads.promo > 0"
+            >
                 <thead>
                     <tr>
                         <th>Image</th>
@@ -25,7 +28,15 @@
 
                 <tbody>
                     <tr
-                        v-for="download in downloads"
+                        class="border-t border-blue-300"
+                        v-if="downloads.promo > 0"
+                    >
+                        <td class="py-2">Promotion</td>
+                        <td class="py-2"></td>
+                        <td class="py-2">$ {{ downloads.promo }}</td>
+                    </tr>
+                    <tr
+                        v-for="download in downloads.items"
                         :key="download.id"
                         class="border-t border-blue-300 "
                     >

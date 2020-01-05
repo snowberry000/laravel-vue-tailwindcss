@@ -21,7 +21,7 @@ class DownloadResource extends JsonResource
             'image_id' => $this->image_id,
             'image_url' => $image($this->fileid),
             'purchased_at' => $this->created_at->format('d/m/Y'),
-            'amount' => number_format(($this->value / 2) / 100, 3),
+            'amount' => number_format(($this->value / 2) / 100, 2),
         ];
         //return [];
         // return [

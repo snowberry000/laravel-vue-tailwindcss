@@ -49,8 +49,6 @@ class PayoutRequestedClient extends Notification
             ->greeting('Hello!')
             ->line("Thank you for requesting payout of $ {$amount}")
             ->line("We will inform you when the status of your payout will change.");
-        // ->action('Notification Action', url('/'))
-
     }
 
     /**
