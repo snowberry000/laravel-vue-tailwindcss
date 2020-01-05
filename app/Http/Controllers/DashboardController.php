@@ -60,16 +60,16 @@ class DashboardController extends Controller
                 return number_format((($downloads / 2) / 100), 2);
             },
             'downloads' => function () use ($request) {
-                $downloads = Download::where('uid', $request->user()->uid)->orderBy('created_at', 'desc')->where('value', '>', 0)->limit(5)->get();
-                $promo_items = $downloads->filter(function ($item) {
-                    return $item->value < 10;
-                });
+                $downloads = Download::where('uid', $request->user()->uid)->orderBy('created_at', 'desc')->where('value', '>', 0)->limit(20)->get();
+                // $promo_items = $downloads->filter(function ($item) {
+                //     return $item->value < 10;
+                // });
                 $normal_items = $downloads->filter(function ($item) {
                     return $item->value >= 10;
                 });
 
                 return [
-                    'promo' => number_format($promo_items->sum('value') / 2 / 100, 2),
+                    //'promo' => number_format($promo_items->sum('value') / 2 / 100, 2),
                     'items' => DownloadResource::collection($normal_items),
                 ];
             },

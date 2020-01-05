@@ -66,7 +66,7 @@ export default {
     },
     computed: {
         aboveTreshold: function() {
-            return Number(this.available.value) > 20;
+            return Number(this.available.value) >= 30;
         }
     },
     data: function() {
