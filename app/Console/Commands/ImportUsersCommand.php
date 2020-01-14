@@ -51,8 +51,9 @@ class ImportUsersCommand extends Command
             ->orderBy('uid', 'asc')
             ->chunk(100, function ($users) {
                 foreach ($users as $user) {
-                    $import = new User();
-                    $import->uid = $user->uid;
+                    $import = User::firstOrNew([
+                        'uid' => $user->uid,
+                    ]);
                     $import->name = $user->name;
                     $import->username = $user->display_name;
                     $import->email = $user->email;
