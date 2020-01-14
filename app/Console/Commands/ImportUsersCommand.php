@@ -54,6 +54,7 @@ class ImportUsersCommand extends Command
                     $import = User::firstOrNew([
                         'uid' => $user->uid,
                     ]);
+                    $import->uid = $user->uid;
                     $import->name = $user->name;
                     $import->username = $user->display_name;
                     $import->email = $user->email;
