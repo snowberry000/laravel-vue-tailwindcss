@@ -41,20 +41,20 @@ class ImportUsersCommand extends Command
      */
     public function handle()
     {
-        $last_imported_user = User::orderBy('id', 'desc')->first();
+        $last_imported_user = User::orderBy('uid', 'desc')->first();
         $uid = isset($last_imported_user) ? $last_imported_user->uid : 0;
         $users = DB::connection('db1')->table('users')
             ->where('uid', '>', $uid)
             ->where('roles', 3)
             ->where('email_confirmed', true)
             ->whereNull('delete_info')
-            ->orderBy('uid')
+            ->orderBy('uid', 'asc')
             ->chunk(100, function ($users) {
                 foreach ($users as $user) {
                     $import = new User();
                     $import->uid = $user->uid;
                     $import->name = $user->name;
-                    $import->username = $user->username;
+                    $import->username = $user->display_name;
                     $import->email = $user->email;
                     $import->password = 'reset';
                     $import->created_at = new Carbon($user->registered_time);
