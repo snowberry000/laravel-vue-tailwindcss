@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Download;
-use App\Http\Resources\AdminPayoutResource;
+use App\Http\Resources\AdminPayoutCollectionResource;
 use App\Http\Resources\DownloadResource;
 use App\Payout;
 use Carbon\Carbon;
@@ -27,8 +27,8 @@ class DashboardController extends Controller
     {
         return Inertia::render('Admin/Dashboard', [
             'payouts' => function () {
-                $payouts = Payout::limit(10)->with('user')->orderBy('created_at', 'desc')->get();
-                return AdminPayoutResource::collection($payouts);
+                $payouts = Payout::with('user')->whereNull('paid_at')->orderBy('created_at', 'desc')->paginate();
+                return new AdminPayoutCollectionResource($payouts);
             },
         ]);
     }
