@@ -16,7 +16,7 @@
                 </thead>
                 <tbody>
                     <tr
-                        v-for="payout in payouts"
+                        v-for="payout in payouts.data"
                         :key="payout.id"
                         class="border-t border-blue-500  py-2"
                     >
@@ -54,6 +54,7 @@
                     </tr>
                 </tbody>
             </table>
+            <Pagination :links="payouts.links" />
         </card>
         <card title="Top Contributors" class="w-full md:w-1/3"></card>
     </div>
@@ -62,17 +63,19 @@
 <script>
 import Layout from "@/shared/AdminLayout";
 import Card from "@/Shared/Card";
+import Pagination from "@/Shared/Pagination";
 
 export default {
     layout: Layout,
     metaInfo: { title: "Index" },
     components: {
-        Card
+        Card,
+        Pagination
     },
     props: {
         payouts: {
-            type: Array,
-            deep: true
+            type: Object
+            //deep: true
         }
     },
     data: function() {
