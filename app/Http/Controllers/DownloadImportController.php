@@ -11,7 +11,6 @@ class DownloadImportController extends Controller
 
     protected $apiKeys = [
         'yayimages' => '805c5b60-6bbf-4a94-818c-f8d4cd52ab62',
-        'old.yayimages' => '0c3d730f-0564-4d0c-988e-5492e45b78ef',
         'pond5' => '1d8a7f7d-d8de-484a-a22a-6b604382e76f',
     ];
 
