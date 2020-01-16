@@ -14,20 +14,20 @@ require("laravel-mix-purgecss");
  |
  */
 
-mix.webpackConfig({
-    output: { chunkFilename: "js/[name].[contenthash].js" },
-    resolve: {
-        alias: {
-            vue$: "vue/dist/vue.runtime.js",
-            "@": path.resolve("resources/js")
-        }
-    }
-})
-    .js("resources/js/app.js", "public/js")
+mix.js("resources/js/app.js", "public/js")
     .sass("resources/sass/app.scss", "public/css")
     .options({
         processCssUrls: false,
         postCss: [tailwindcss("./tailwind.config.js"), autoprefixer]
+    })
+    .webpackConfig({
+        output: { chunkFilename: "js/[name].js?id=[chunkhash]" },
+        resolve: {
+            alias: {
+                vue$: "vue/dist/vue.runtime.esm.js",
+                "@": path.resolve("resources/js")
+            }
+        }
     });
 
 if (!mix.inProduction()) {
