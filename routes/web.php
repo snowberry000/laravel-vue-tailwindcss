@@ -12,7 +12,8 @@
  */
 
 //Auth::routes();
-Route::namespace ('Auth')->group(function () {
+
+Route::group(['namespace' => 'Auth'], function () {
     Route::middleware('guest')->group(function () {
         Route::get('login')->uses('LoginController@showLoginForm')->name('login');
         Route::post('login')->uses('LoginController@login')->name('login.attempt');
@@ -29,7 +30,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/downloads/{date?}')->uses('DownloadController@index')->name('downloads.show');
     Route::get('/')->uses('DashboardController@index')->name('home');
     Route::post('/payout')->uses('PayoutController@create')->name('payout.create');
+    Route::get('/kyc')->uses('KycController@create')->name('kyc.create');
+    Route::post('/kyc')->uses('KycController@store')->name('kyc.store');
+});
 
+Route::group(['namespace' => 'Admin', 'middleware' => ['role:Admin']], function () {
+    Route::get('admin/payouts')->uses('PayoutController@index')->name('admin.payouts');
+    Route::get('kyc/{user}/confirm')->uses('KycController@confirm')->name('kyc.confirm');
+    Route::post('kyc/{user}/confirm')->uses('KycController@approve')->name('kyc.approve');
+    Route::get('kyc/view/{file}')->uses('KycController@file')->name('kyc.view');
 });
 
 //Route::get('/home', 'HomeController@index')->name('home');

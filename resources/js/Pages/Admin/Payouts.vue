@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-start">
-        <card title="Unpaid Payouts" class="w-full">
+        <card title="Payouts" class="w-full">
             <table class="w-full text-sm table-auto">
                 <thead>
                     <tr>
@@ -56,7 +56,6 @@
             </table>
             <Pagination :links="payouts.links" />
         </card>
-        <card title="Top Contributors" class="w-full md:w-1/3"></card>
     </div>
 </template>
 
@@ -66,24 +65,14 @@ import Card from "@/Shared/Card";
 import Pagination from "@/Shared/Pagination";
 
 export default {
+    metaInfo: { title: "Contributor Payouts" },
     layout: Layout,
-    metaInfo: { title: "Index" },
     components: {
         Card,
         Pagination
     },
     props: {
-        payouts: {
-            type: Object
-            //deep: true
-        }
-    },
-    data: function() {
-        return {
-            payout: false
-        };
+        payouts: Object
     }
 };
 </script>
-
-<style></style>

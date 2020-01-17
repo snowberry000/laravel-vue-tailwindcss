@@ -28,16 +28,12 @@
         >
             <div class="text-sm lg:flex-grow">
                 <inertia-link
-                    href="/"
                     class="block mt-4 lg:inline-block lg:mt-0 mr-4"
+                    v-for="item in routes"
+                    :key="item.route"
+                    :href="route(item.route)"
                 >
-                    Dashboard
-                </inertia-link>
-                <inertia-link
-                    href="/downloads"
-                    class="block mt-4 lg:inline-block lg:mt-0 mr-4"
-                >
-                    Downloads
+                    {{ item.label }}
                 </inertia-link>
             </div>
             <div>
@@ -67,6 +63,9 @@ export default {
         handleFocusOut: function() {
             this.open = false;
         }
+    },
+    props: {
+        routes: Array
     }
 };
 </script>

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -36,6 +37,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Verify user so he could request payouts.
+     * @return bool
+     */
+    public function approve()
+    {
+        $this->kyc_verified_at = Carbon::now();
+        return $this->save();
+    }
+
     public function payouts()
     {
         return $this->hasMany('App\Payout', 'uid', 'uid');
@@ -50,5 +61,10 @@ class User extends Authenticatable
     public function unpaidDownloads()
     {
         return $this->hasMany('App\Download', 'uid', 'uid')->whereNull('payout_id');
+    }
+
+    public function kycs()
+    {
+        return $this->hasMany('App\Kyc', 'user_id', 'id');
     }
 }

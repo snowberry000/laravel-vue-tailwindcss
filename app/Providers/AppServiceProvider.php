@@ -49,7 +49,8 @@ class AppServiceProvider extends ServiceProvider
                     'user' => Auth::user() ? [
                         'id' => Auth::user()->id,
                         'uid' => Auth::user()->uid,
-                        'first_name' => Auth::user()->name,
+                        'name' => Auth::user()->name,
+                        'kyc_verified_at' => Auth::user()->kyc_verified_at,
                         'email' => Auth::user()->email,
                         'role' => Auth::user()->role,
                     ] : null,
@@ -65,6 +66,16 @@ class AppServiceProvider extends ServiceProvider
                 return Session::get('errors')
                 ? Session::get('errors')->getBag('default')->getMessages()
                 : (object) [];
+            },
+            'routes' => function () {
+                $roles = Auth::user() ? Auth::user()->getRoleNames() : [];
+                //return Auth::user()->getRoleNames();
+                $routes = [];
+                foreach ($roles as $role) {
+                    $role_items = config("navigation.{$role}") ? config("navigation.{$role}") : [];
+                    $routes = array_merge($routes, $role_items);
+                }
+                return $routes;
             },
         ]);
     }

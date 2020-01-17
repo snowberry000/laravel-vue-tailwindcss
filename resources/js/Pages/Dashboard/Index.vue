@@ -25,7 +25,7 @@
                     </tbody>
                 </table>
                 <a
-                    @click="payout = true"
+                    @click="requestPayout()"
                     class="block border border-blue-500 text-blue-500 uppercase text-blue-500 rounded text-center p-5 m-5"
                     >Request Payout</a
                 >
@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import Layout from "@/components/Layout";
+import Layout from "@/Shared/Layout";
 import Card from "@/Shared/Card";
 import PayoutForm from "@/Shared/PayoutForm";
 export default {
@@ -106,13 +106,21 @@ export default {
     props: {
         total: Object,
         last30: Object,
-        downloads: Array,
+        downloads: [Array, Object],
         available: Object
     },
     data: function() {
         return {
             payout: false
         };
+    },
+    methods: {
+        requestPayout: function() {
+            if (!this.$page.auth.user.kyc_verified_at) {
+                return this.$inertia.visit(route("kyc.create"));
+            }
+            this.payout = !this.payout;
+        }
     }
 };
 </script>

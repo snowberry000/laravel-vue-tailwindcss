@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import Layout from "@/components/Layout";
+import Layout from "@/Shared/Layout";
 import Card from "@/Shared/Card";
 import Datepicker from "vuejs-datepicker";
 
