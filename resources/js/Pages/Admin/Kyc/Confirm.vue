@@ -106,7 +106,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="kyc in user.kycs">
+                        <tr v-for="kyc in user.kycs" :key="kyc.id">
                             <th class="p-2 text-right">
                                 {{ kyc.original_name }}
                             </th>
