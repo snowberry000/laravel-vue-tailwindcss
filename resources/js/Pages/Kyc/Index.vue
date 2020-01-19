@@ -2,22 +2,19 @@
     <div class="w-full flex">
         <card title="Please verify your identity" class="w-full">
             <p class="mb-5">
-                Before getting your payout processed and any other data
-                modification we would like to verify you identity.
+                Before processing your payout and any other data modification
+                requests we require that you verify your identity.
             </p>
             <h3 class="font-bold mb-2">
-                We will require following documents<sup
-                    class="font-bold text-red-500"
-                    >1</sup
-                >
-                to be submitted:
+                We require the following documents to be submitted:
+                <sup class="font-bold text-red-500">1</sup>
             </h3>
             <ul class="list-inside list-disc mb-5">
                 <li>
-                    Proof of identity, only valid passport or id card is
+                    Proof of identity, only a valid passport or id card is
                     acceptable as proof of identity.
                 </li>
-                <li>Filled up w8-ben form</li>
+                <li>Completed w8-ben form</li>
             </ul>
             <form @submit.prevent="submit">
                 <div>
