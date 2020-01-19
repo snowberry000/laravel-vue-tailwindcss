@@ -16,7 +16,7 @@ class PayoutController extends Controller
         $user = $request->user();
         $unpaidDownloads = $user->unpaidDownloads();
         $amount = $unpaidDownloads->sum('value') / 2;
-        if ($amount == 0 || $amount < 25) {
+        if ($amount == 0 || $amount < 30) {
             return redirect()->back()->with('success', 'You have not enough funds to withdraw.');
         }
         DB::beginTransaction();
@@ -28,11 +28,12 @@ class PayoutController extends Controller
             $item->payout_id = $payout->id;
             $item->save();
         });
+        DB::commit();
         if ($payout) {
             $user->notify(new PayoutRequestedClient($payout));
             Notification::route('mail', env('MAIL_FROM_ADDRESS'))->notify(new PayoutRequested($payout, $user));
         }
-        DB::commit();
+
         return redirect()->back()->with('success', 'Your Payment Request was successfully sent.');
     }
 
