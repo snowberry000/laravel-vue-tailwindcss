@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Notifications\PayoutRequested;
 use App\Notifications\PayoutRequestedClient;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
@@ -14,6 +15,7 @@ class PayoutController extends Controller
     {
         $request->validate(['memo' => 'required']);
         $user = $request->user();
+
         $unpaidDownloads = $user->unpaidDownloads();
         $amount = $unpaidDownloads->sum('value') / 2;
         if ($amount == 0 || $amount < 30) {
@@ -24,10 +26,7 @@ class PayoutController extends Controller
             'amount' => $amount,
             'memo' => $request->memo,
         ]);
-        $unpaidDownloads->each(function ($item) use ($payout) {
-            $item->payout_id = $payout->id;
-            $item->save();
-        });
+        DB::table('downloads')->where('uid', $user->uid)->whereNull('payout_id')->update(['payout_id' => $payout->id, 'updated_at' => Carbon::now()]);
         DB::commit();
         if ($payout) {
             $user->notify(new PayoutRequestedClient($payout));
