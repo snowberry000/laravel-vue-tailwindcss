@@ -18,7 +18,7 @@ class PeriodicSingleSalesNotification extends Notification
      *
      * @return void
      */
-    public function __construct(User $user, int $value)
+    public function __construct(User $user, float $value)
     {
         $this->user = $user;
         $this->value = $value;
@@ -46,6 +46,7 @@ class PeriodicSingleSalesNotification extends Notification
         $value = number_format($this->value, 2);
 
         return (new MailMessage)
+            ->subject("Last week you made sales.")
             ->greeting("Hello {$this->user->name}")
             ->line("During last week your images made __$ {$value}__. Visit contributor portal to view your earnings and payout information in more detail.")
             ->action('Visit Contributor Portal', url(route('home')))
