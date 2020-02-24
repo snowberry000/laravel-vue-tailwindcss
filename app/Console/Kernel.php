@@ -25,6 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('users:import')->everyFiveMinutes()->withoutOverlapping();
+        $schedule->command('sales:report')->weeklyOn(1, '2:00')->withoutOverlapping();
         // $schedule->command('inspire')
         //          ->hourly();
     }

@@ -41,6 +41,11 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['role:Admin']], function 
     Route::get('kyc/view/{file}')->uses('KycController@file')->name('kyc.view');
 });
 
+if (app()->env == 'local') {
+    Route::get('mail', 'testMailController@index');
+
+}
+
 //Route::get('/home', 'HomeController@index')->name('home');
 
 // $this->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
