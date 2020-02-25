@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/import', 'DownloadImportController');
+Route::post('/authorize', 'AuthSftpController@index');
