@@ -18,7 +18,7 @@ class CreatePayoutsTable extends Migration
             $table->unsignedBigInteger('uid');
             $table->integer('amount');
             $table->text('memo');
-            $table->dateTime('paid_at')->nullable()->default('null');
+            $table->dateTime('paid_at')->nullable()->default(null);
             $table->timestamps();
         });
 
