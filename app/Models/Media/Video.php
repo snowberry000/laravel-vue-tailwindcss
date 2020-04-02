@@ -31,9 +31,11 @@ class Video extends Model
         $keywords = explode(', ', $keywords);
         $result = [];
         foreach ($keywords as $keyword) {
-            $result[] = ['key' => '', 'value' => $keyword];
+            if (!empty($keyword)) {
+                $result[] = ['key' => '', 'value' => $keyword];
+            }
         }
-        return $result;
+        return empty($result) ? null : $result;
     }
 
     public function releases()
