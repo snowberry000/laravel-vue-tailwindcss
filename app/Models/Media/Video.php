@@ -10,6 +10,8 @@ class Video extends Model
 
     protected $casts = [
         'uploaded_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'published_at' => 'datetime',
     ];
 
     const CREATED_AT = 'uploaded_at';
