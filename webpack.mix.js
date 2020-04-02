@@ -34,5 +34,5 @@ if (!mix.inProduction()) {
     mix.sourceMaps();
 }
 if (mix.inProduction()) {
-    mix.purgeCss({}).version();
+    mix.purgeCss().version();
 }

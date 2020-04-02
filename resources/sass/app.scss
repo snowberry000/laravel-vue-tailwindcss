@@ -9,8 +9,9 @@
 @import "calendar";
 @import "nprogress";
 @import "tooltip";
-@import "~video.js/dist/video-js.css";
-@import "~@voerro/vue-tagsinput/dist/style.css";
+
+@import "components/video-js.css";
+@import "components/tags.css";
 
 .tags-input span {
     @apply m-1;
