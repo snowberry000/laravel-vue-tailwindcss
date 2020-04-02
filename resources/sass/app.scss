@@ -3,8 +3,15 @@
 @import "tailwindcss/components";
 
 @import "tailwindcss/utilities";
-
+@import "components/buttons";
 @import "form";
 @import "buttons";
 @import "calendar";
 @import "nprogress";
+@import "tooltip";
+@import "~video.js/dist/video-js.css";
+@import "~@voerro/vue-tagsinput/dist/style.css";
+
+.tags-input span {
+    @apply m-1;
+}

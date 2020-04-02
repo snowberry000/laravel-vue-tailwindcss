@@ -1,0 +1,25 @@
+.btn {
+    @apply border rounded px-4 py-2 uppercase shadow-xl inline-block;
+    :hover {
+        @apply shadow;
+    }
+    &.btn-primary {
+        @apply bg-blue-500 text-white;
+        &:hover {
+            @apply bg-blue-700;
+        }
+
+        &.active {
+            @apply bg-blue-800;
+        }
+    }
+    &.btn-primary-outline {
+        @apply text-blue-500 border-blue-500;
+        &:hover {
+            @apply text-blue-700 border-blue-700;
+        }
+        &.active {
+            @apply text-blue-900 border-blue-900;
+        }
+    }
+}
