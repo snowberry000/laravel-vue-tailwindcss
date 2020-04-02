@@ -35,4 +35,9 @@ class Video extends Model
         }
         return $result;
     }
+
+    public function releases()
+    {
+        return $this->belongsToMany('App\Models\Media\Release');
+    }
 }
