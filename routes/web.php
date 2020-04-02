@@ -32,6 +32,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/payout')->uses('PayoutController@create')->name('payout.create');
     Route::get('/kyc')->uses('KycController@create')->name('kyc.create');
     Route::post('/kyc')->uses('KycController@store')->name('kyc.store');
+    Route::get('/videos')->uses('VideoController@index')->name('video.show');
+    Route::post('/videos')->uses('VideoController@store')->name('video.store');
+
 });
 
 Route::group(['namespace' => 'Admin', 'middleware' => ['role:Admin']], function () {
