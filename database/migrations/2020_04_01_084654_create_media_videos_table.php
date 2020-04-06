@@ -47,6 +47,10 @@ class CreateMediaVideosTable extends Migration
      */
     public function down()
     {
+        Schema::connection('media')->table('release_video', function (Blueprint $table) {
+            $table->dropForeign(['video_id']);
+        });
+
         Schema::connection('media')->dropIfExists('videos');
     }
 }

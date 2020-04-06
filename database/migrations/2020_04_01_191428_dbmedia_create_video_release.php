@@ -42,8 +42,8 @@ class DbmediaCreateVideoRelease extends Migration
     {
         Schema::connection('media')->table('release_video', function (Blueprint $table) {
             $table->dropForeign(['release_id']);
-            $table->dropForeign(['video_id']);
         });
+
         Schema::connection('media')->dropIfExists('release_video');
         Schema::connection('media')->dropIfExists('releases');
     }
