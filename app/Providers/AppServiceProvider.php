@@ -77,7 +77,7 @@ class AppServiceProvider extends ServiceProvider
                     $routes = array_merge($routes, $role_items);
                 }
                 if (Auth::user()->video) {
-                    $routes[] = ['route' => 'videos', 'label' => 'Videos'];
+                    $routes[] = ['route' => 'video.show', 'label' => 'Videos'];
                 }
                 return $routes;
 
