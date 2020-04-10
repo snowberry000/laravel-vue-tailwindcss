@@ -24,7 +24,7 @@ class VideoController extends Controller
             'videos' => function () use ($request) {
                 $videos = Video::when(isset($request->status), function ($q) use ($request) {
                     return $q->where('status', $request->status);
-                })->where('uid', $request->user->uid)->paginate();
+                })->where('uid', $request->user()->uid)->paginate();
                 return new VideoCollectionResource($videos);
             },
             'status' => function () use ($status) {return $status;},
@@ -39,7 +39,7 @@ class VideoController extends Controller
             'description' => ['required'],
             'keywords' => ['required'],
         ]);
-        $video = Video::where('id', $validated['id'])->where('uid', $request->user->uid)->firstOrFail();
+        $video = Video::where('id', $validated['id'])->where('uid', $request->user()->uid)->firstOrFail();
         $video->title = $validated['title'];
         $video->description = $validated['description'];
         $video->keywords = $validated['keywords'];
