@@ -53,10 +53,11 @@
                             >
                         </td>
                         <td class="p-2">
-                            <ul v-if="video.releases" class="list-none">
+                            <ul v-if="video.releases.length" class="list-none">
                                 <li
                                     v-for="release in video.releases"
                                     :key="release.id"
+                                    class="text-xs"
                                 >
                                     {{ release.name }}
                                 </li>
