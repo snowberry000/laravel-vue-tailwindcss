@@ -3,8 +3,9 @@ return [
     'Admin' => [
         ['route' => 'home', 'label' => 'Dashboard'],
         ['route' => 'admin.payouts', 'label' => 'Payouts'],
-        ['route' => 'home', 'label' => 'Downloads'],
-        ['route' => 'home', 'label' => 'Contributors'],
+        ['route' => 'home', 'label' => 'Video Approval'],
+        //['route' => 'home', 'label' => 'Downloads'],
+        //['route' => 'home', 'label' => 'Contributors'],
     ],
     'Contributor' => [
         ['route' => 'home', 'label' => 'Dashboard'],

@@ -21,10 +21,6 @@ class CreateKycsTable extends Migration
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
         });
-
-        Schema::table('users', function (Blueprint $table) {
-            $table->timestamp('kyc_verified_at')->nullable()->default(null)->after('email_verified_at');
-        });
     }
 
     /**
@@ -38,9 +34,5 @@ class CreateKycsTable extends Migration
             $table->dropForeign(['user_id']);
         });
         Schema::dropIfExists('kycs');
-
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['kyc_verified_at']);
-        });
     }
 }
