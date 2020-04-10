@@ -52,7 +52,16 @@
                                 >{{ video.description }}</small
                             >
                         </td>
-                        <td class="p-2"></td>
+                        <td class="p-2">
+                            <ul v-if="video.releases" class="list-none">
+                                <li
+                                    v-for="release in video.releases"
+                                    :key="release.id"
+                                >
+                                    {{ release.name }}
+                                </li>
+                            </ul>
+                        </td>
                         <td class="p-2"><video-metainfo :video="video" /></td>
                         <td class="p-2">
                             <span
