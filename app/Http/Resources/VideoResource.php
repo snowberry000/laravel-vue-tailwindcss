@@ -19,13 +19,14 @@ class VideoResource extends JsonResource
 
         return [
             'id' => $this->id,
+            'uid' => $this->uid,
             'title' => $this->title,
             'description' => $this->description,
             'keywords' => $this->keywords,
             'people' => $this->people,
             'num_people' => $this->num_people,
             'editorial' => $this->editorial,
-            'uid' => $this->uid,
+            'releases' => ReleaseResource::collection($this->releases),
             'preview' => $cdn_url . $this->file_uuid . '.mp4',
             'thumbnail' => $cdn_url . $this->file_uuid . '.0000000.jpg',
             'codec' => $this->codec,
