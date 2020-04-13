@@ -76,7 +76,7 @@ class AppServiceProvider extends ServiceProvider
                     $role_items = config("navigation.{$role}") ? config("navigation.{$role}") : [];
                     $routes = array_merge($routes, $role_items);
                 }
-                if (Auth::user()->video) {
+                if (Auth::user() && Auth::user()->video) {
                     $routes[] = ['route' => 'video.show', 'label' => 'Videos'];
                 }
                 return $routes;

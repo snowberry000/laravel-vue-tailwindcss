@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/kyc')->uses('KycController@store')->name('kyc.store');
     Route::get('/videos')->uses('VideoController@index')->name('video.show');
     Route::post('/videos')->uses('VideoController@store')->name('video.store');
+    Route::get('/release/{id}')->uses('ReleaseController@download')->name('release.download');
 
 });
 
@@ -42,6 +43,10 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['role:Admin']], function 
     Route::get('kyc/{user}/confirm')->uses('KycController@confirm')->name('kyc.confirm');
     Route::post('kyc/{user}/confirm')->uses('KycController@approve')->name('kyc.approve');
     Route::get('kyc/view/{file}')->uses('KycController@file')->name('kyc.view');
+    /**
+     * Video aproval routes
+     */
+    Route::get('admin/videos')->uses('VideoController@index')->name('admin.videos');
 });
 
 if (app()->env == 'local') {

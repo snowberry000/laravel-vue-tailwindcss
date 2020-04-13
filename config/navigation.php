@@ -3,7 +3,7 @@ return [
     'Admin' => [
         ['route' => 'home', 'label' => 'Dashboard'],
         ['route' => 'admin.payouts', 'label' => 'Payouts'],
-        ['route' => 'home', 'label' => 'Video Approval'],
+        ['route' => 'admin.videos', 'label' => 'Video Approval'],
         //['route' => 'home', 'label' => 'Downloads'],
         //['route' => 'home', 'label' => 'Contributors'],
     ],

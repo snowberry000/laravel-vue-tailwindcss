@@ -10,6 +10,9 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     use HasRoles, Notifiable;
+
+    protected $connection = 'mysql';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -66,5 +69,15 @@ class User extends Authenticatable
     public function kycs()
     {
         return $this->hasMany('App\Kyc', 'user_id', 'id');
+    }
+
+    public function videos()
+    {
+        return $this->hasMany('App\Models\Media\Video', 'uid', 'uid');
+    }
+
+    public function releases()
+    {
+        return $this->hasMany('App\Models\Media\Releases', 'uid', 'uid');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models\Media;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Video extends Model
 {
@@ -38,8 +39,23 @@ class Video extends Model
         return empty($result) ? null : $result;
     }
 
+    public function getRawkeywordsAttribute()
+    {
+        $result = explode(', ', $this->attributes['keywords']);
+        if (empty($result[0])) {
+            return [];
+        }
+
+        return $result;
+    }
+
     public function releases()
     {
         return $this->belongsToMany('App\Models\Media\Release');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'uid', 'uid');
     }
 }

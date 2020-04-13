@@ -19,3 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/import', 'DownloadImportController');
 Route::post('/authorize', 'AuthSftpController@index');
+
+Route::group(['namespace' => 'Admin', 'middleware' => ['auth:sanctum', 'role:Admin']], function () {
+    Route::get('/video/full/{id}')->uses('VideoController@getFullLink')->name('video.temp-full');
+});

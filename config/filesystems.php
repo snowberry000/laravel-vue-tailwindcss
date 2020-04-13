@@ -63,6 +63,22 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
         ],
+        'videos' => [
+            'driver' => 's3',
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'region' => env('AWS_DEFAULT_REGION'),
+            'bucket' => 'yay-video',
+            'url' => env('AWS_URL'),
+        ],
+        'releases' => [
+            'driver' => 's3',
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'region' => env('AWS_DEFAULT_REGION'),
+            'bucket' => 'yay-releases',
+            'url' => env('AWS_URL'),
+        ],
         'azure' => [
             'driver' => 'azure',
             'local_address' => env('AZURE_STORAGE_LOCAL_ADDRESS', null),
