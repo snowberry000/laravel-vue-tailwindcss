@@ -11,6 +11,22 @@ Vue.use(PortalVue);
 Vue.use(VueMeta);
 Vue.use(VTooltip);
 
+import Axios from "axios";
+Vue.prototype.$http = Axios;
+
+// const token = localStorage.getItem("token");
+// if (token) {
+//     Vue.prototype.$http.defaults.headers.common["Authorization"] =
+//         "Bearer " + token;
+// }
+Vue.prototype.$http.defaults.headers.common["X-Requested-With"] =
+    "XMLHttpRequest";
+let token = document.head.querySelector('meta[name="csrf-token"]');
+
+if (token) {
+    Vue.prototype.$http.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
+}
+
 let app = document.getElementById("app");
 
 new Vue({
