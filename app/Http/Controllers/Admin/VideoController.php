@@ -58,7 +58,8 @@ class VideoController extends Controller
     public function getFullLink(Request $request, String $id)
     {
         $result = Video::where('file_uuid', $id)->firstOrFail();
-        $templink = Storage::disk('videos')->temporaryUrl("source/{$result->file_uuid}{$result->extension}", now()->addMinutes(10));
+        $source = $result['4k'] ? '1080p' : 'source';
+        $templink = Storage::disk('videos')->temporaryUrl("{$source}/{$result->file_uuid}{$result->extension}", now()->addMinutes(10));
         return ['status' => 'OK', 'src' => $templink];
     }
 }
