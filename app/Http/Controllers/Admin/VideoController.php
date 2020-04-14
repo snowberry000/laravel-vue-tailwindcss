@@ -19,18 +19,27 @@ class VideoController extends Controller
      */
     public function index(Request $request)
     {
+        $perpage = $request->perpage ?? 20;
+        $uid = $request->contributor;
         $users = Video::select('uid', DB::raw('count(`uid`) as video_count'))
-            ->where('status', 2)
+            ->whereStatus(2)
             ->groupBy('uid')
             ->with('user')
             ->orderBy('video_count', 'DESC')
             ->get();
-        $videos = Video::with('user')->paginate();
+        $videos = Video::with('user')
+            ->whereStatus(2)
+            ->when($uid, function ($query) use ($uid) {
+                return $query->where('uid', $uid);
+            })
+            ->paginate($perpage);
 
         $result = Inertia::render('Admin/Video/Index', [
+            'perpage' => $perpage,
+            'contributor' => $uid,
             //'videos' => Video::where('status', 2)->with('user')->paginate(),
             'videos' => new VideoResourceCollection($videos),
-            'users' => $users,
+            'contributors' => $users,
         ]);
         return $result;
     }
@@ -42,7 +51,11 @@ class VideoController extends Controller
      */
     public function approve(Request $request)
     {
-
+        $validated = $request->validate([
+            'videos' => ['required', 'array'],
+        ]);
+        $result = Video::whereIn('id', $validated['videos'])->get();
+        return $result;
     }
 
     /**

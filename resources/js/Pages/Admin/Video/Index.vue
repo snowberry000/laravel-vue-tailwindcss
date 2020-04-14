@@ -1,6 +1,83 @@
 <template>
     <div class="flex">
-        <card title="Videos" class="w-full">
+        <card title="Video Approval Queue" class="w-full">
+            <div class="flex justify-between">
+                <ul class="w-full flex flex-wrap items-center pb-5">
+                    <li class="p-1 text-xs font-bold uppercase">
+                        Filter By User:
+                    </li>
+                    <li
+                        class="p-1"
+                        v-for="contributor in contributors"
+                        :key="contributor.id"
+                    >
+                        <inertia-link
+                            :href="
+                                route(
+                                    'admin.videos',
+                                    routeParams({
+                                        contributor: contributor.uid
+                                    })
+                                )
+                            "
+                            class="btn btn-primary text-xs"
+                            >{{ contributor.user.username }} ({{
+                                contributor.video_count
+                            }})
+                        </inertia-link>
+                    </li>
+                </ul>
+                <ul class="w-full flex flex-wrap items-center pb-5">
+                    <li class="p-1 text-xs font-bold uppercase">
+                        Items:
+                    </li>
+                    <li class="p-1">
+                        <inertia-link
+                            :href="
+                                route(
+                                    'admin.videos',
+                                    routeParams({
+                                        perpage: 20
+                                    })
+                                )
+                            "
+                            class="btn btn-primary text-xs"
+                            :class="{ active: perpage == 20 }"
+                            >20
+                        </inertia-link>
+                    </li>
+                    <li class="p-1">
+                        <inertia-link
+                            :href="
+                                route(
+                                    'admin.videos',
+                                    routeParams({
+                                        perpage: 50
+                                    })
+                                )
+                            "
+                            class="btn btn-primary text-xs"
+                            :class="{ active: perpage == 50 }"
+                            >50
+                        </inertia-link>
+                    </li>
+                    <li class="p-1">
+                        <inertia-link
+                            :href="
+                                route(
+                                    'admin.videos',
+                                    routeParams({
+                                        perpage: 100
+                                    })
+                                )
+                            "
+                            class="btn btn-primary text-xs"
+                            :class="{ active: perpage == 100 }"
+                            >100
+                        </inertia-link>
+                    </li>
+                </ul>
+            </div>
             <table class="table table-auto flex w-full">
                 <thead>
                     <tr class="border-b text-xs">
@@ -93,6 +170,7 @@
                     </tr>
                 </tbody>
             </table>
+            <Pagination :links="videos.links" />
         </card>
         <preview :video="preview" @preview-close="preview = null" />
     </div>
@@ -103,17 +181,28 @@ import Layout from "@/Shared/Layout";
 import Card from "@/Shared/Card";
 import VideoMetainfo from "@/Shared/Videos/MetaInfo";
 import Preview from "./Partial/Preview";
+import Pagination from "@/Shared/Pagination";
 export default {
     layout: Layout,
-    metaInfo: { title: "Approve some videos" },
+    metaInfo: { title: "Video Approval" },
     components: {
         Card,
         VideoMetainfo,
-        Preview
+        Preview,
+        Pagination
     },
     props: {
         videos: {
             type: Object
+        },
+        contributors: {
+            type: Array
+        },
+        perpage: {
+            default: 20
+        },
+        contributor: {
+            default: null
         }
     },
     data: function() {
@@ -124,6 +213,12 @@ export default {
     methods: {
         previewVideo: function(video) {
             this.preview = video;
+        },
+        routeParams: function(params) {
+            let result = {};
+            if (this.contributor) result.contributor = this.contributor;
+            if (this.perpage) result.perpage = this.perpage;
+            return Object.assign(result, params);
         }
     }
 };

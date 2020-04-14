@@ -1,7 +1,12 @@
 <template>
-    <div class="fixed right-0 bottom-0 w-2/4" v-if="video">
+    <div
+        class="fixed right-0 bottom-0 w-full md:w-2/4 md:m-16 shadow-2xl"
+        v-if="video"
+        @keydown.esc="close"
+    >
         <button
             @click="close"
+            aria-label="close"
             class="rounded-full w-12 h-12 -ml-6 -mt-6 bg-blue-500 text-white absolute left-0 top-0 z-20"
         >
             <svg
@@ -28,6 +33,7 @@ export default {
     props: ["video"],
     watch: {
         video: function(n, o) {
+            if (!n) return;
             this.getVideo();
         }
     },
@@ -42,16 +48,24 @@ export default {
                 .get("/api/video/full/" + this.video.file_uuid)
                 .then(res => {
                     this.src = res.data.src;
-                    console.log(res.data.src);
-                })
-                .catch(err => {
-                    console.log(err);
                 });
         },
         close: function() {
             this.src = null;
             this.$emit("preview-close");
+        },
+        closeOnEscape: e => {
+            if (e.code == "Escape" || e.keyCode == 27) {
+                this.close();
+            }
         }
+    },
+    created: function() {
+        var self = this;
+        window.addEventListener("keyup", this.closeOnEscape);
+    },
+    beforeDestroy: function() {
+        window.removeEventListener("keyup", this.closeOnEscape);
     }
 };
 </script>
