@@ -54,8 +54,8 @@ class VideoController extends Controller
         $validated = $request->validate([
             'videos' => ['required', 'array'],
         ]);
-        $result = Video::whereIn('id', $validated['videos'])->get();
-        return $result;
+        $result = Video::whereIn('id', $validated['videos'])->update(['status' => 3]);
+        return redirect()->back()->with('success', "{$result} videos successfully accepted.");
     }
 
     /**
@@ -65,7 +65,11 @@ class VideoController extends Controller
      */
     public function reject(Request $request)
     {
-
+        $validated = $request->validate([
+            'videos' => ['required', 'array'],
+        ]);
+        $result = Video::whereIn('id', $validated['videos'])->update(['status' => -2]);
+        return redirect()->back()->with('success', "{$result} videos successfully rejected.");
     }
 
     public function getFullLink(Request $request, String $id)

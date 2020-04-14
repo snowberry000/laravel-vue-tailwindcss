@@ -1,8 +1,8 @@
 <template>
     <div class="flex">
         <card title="Video Approval Queue" class="w-full">
-            <div class="flex justify-between">
-                <ul class="w-full flex flex-wrap items-center pb-5">
+            <div class="md:flex justify-between">
+                <ul class="w-full flex flex-1 flex-wrap items-center pb-5">
                     <li class="p-1 text-xs font-bold uppercase">
                         Filter By User:
                     </li>
@@ -27,7 +27,7 @@
                         </inertia-link>
                     </li>
                 </ul>
-                <ul class="w-full flex flex-wrap items-center pb-5">
+                <ul class="flex flex-wrap items-center pb-5">
                     <li class="p-1 text-xs font-bold uppercase">
                         Items:
                     </li>
@@ -76,12 +76,37 @@
                             >100
                         </inertia-link>
                     </li>
+                    <li
+                        v-if="selected.length"
+                        class="flex text-xs items-center pl-2"
+                    >
+                        <strong>SELECTED:</strong>
+                        <button
+                            class="btn btn-primary text-xs"
+                            @click="approveVideos()"
+                        >
+                            Accept
+                        </button>
+                        <button
+                            class="btn btn-danger text-xs"
+                            @click="rejectVideos()"
+                        >
+                            Reject
+                        </button>
+                    </li>
                 </ul>
             </div>
             <table class="table table-auto flex w-full">
                 <thead>
                     <tr class="border-b text-xs">
-                        <th>select</th>
+                        <th class="text-base">
+                            <input
+                                class="mb-1"
+                                type="checkbox"
+                                v-model="selectall"
+                                @click="select()"
+                            />
+                        </th>
                         <th>Thumb/Preview</th>
                         <th>Title/Description</th>
                         <th>Keywords</th>
@@ -96,7 +121,13 @@
                         :key="video.id"
                         class="border-b"
                     >
-                        <td></td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                :value="video.id"
+                                v-model="selected"
+                            />
+                        </td>
                         <td class="w-56 p-1">
                             <button @click="previewVideo(video)">
                                 <img :src="video.thumbnail" />
@@ -133,10 +164,23 @@
                             <strong class="p-1" v-else>No Keywords.</strong>
                         </td>
                         <td>
-                            <ul v-if="video.releases.length">
-                                <li v-for="release in video.releases">
+                            <ul class="text-sm">
+                                <li class="p-1">
+                                    <strong>people:</strong>
+                                    {{ video.people ? "Yes" : "No" }}
+                                </li>
+                                <li class="p-1" v-if="video.num_people">
+                                    <strong>number of people</strong
+                                    >{{ video.num_people }}
+                                </li>
+                                <li
+                                    class="p-1"
+                                    v-for="release in video.releases"
+                                    v-if="video.releases.length"
+                                    :key="release.id"
+                                >
                                     <a
-                                        class="text-blue-500 flex text-sm items-center"
+                                        class="text-blue-500 flex items-center"
                                         :href="
                                             route('release.download', {
                                                 id: release.file_uuid
@@ -166,7 +210,24 @@
                                 display-title
                             ></video-metainfo>
                         </td>
-                        <td></td>
+                        <td class="">
+                            <div
+                                class="flex flex-col justify-center items-center"
+                            >
+                                <button
+                                    class="btn btn-primary text-xs"
+                                    @click="approveVideos(video.id)"
+                                >
+                                    Accept
+                                </button>
+                                <button
+                                    class="btn btn-danger text-xs"
+                                    @click="rejectVideos(video.id)"
+                                >
+                                    Reject
+                                </button>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -207,7 +268,10 @@ export default {
     },
     data: function() {
         return {
-            preview: null
+            sending: false,
+            preview: null,
+            selected: [],
+            selectall: false
         };
     },
     methods: {
@@ -219,6 +283,46 @@ export default {
             if (this.contributor) result.contributor = this.contributor;
             if (this.perpage) result.perpage = this.perpage;
             return Object.assign(result, params);
+        },
+        select: function() {
+            this.selected = [];
+            if (!this.selectall) {
+                for (let i in this.videos.data) {
+                    this.selected.push(this.videos.data[i].id);
+                }
+            }
+        },
+        approveVideos: function(id = null) {
+            let selected = [];
+            if (id) selected.push(id);
+            else {
+                selected = this.selected;
+            }
+            if (selected.length) {
+                this.sending = true;
+                this.$inertia
+                    .post(route("admin.videos.approve"), {
+                        videos: selected
+                    })
+                    .then(() => {
+                        this.sending = false;
+                    });
+            }
+        },
+        rejectVideos: function(id) {
+            let selected = [];
+            if (id) selected.push(id);
+            else {
+                selected = this.selected;
+            }
+            if (selected.length) {
+                this.sending = true;
+                this.$inertia
+                    .post(route("admin.videos.reject"), { videos: selected })
+                    .then(() => {
+                        this.sending = false;
+                    });
+            }
         }
     }
 };

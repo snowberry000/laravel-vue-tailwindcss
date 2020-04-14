@@ -46,7 +46,10 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['role:Admin']], function 
     /**
      * Video aproval routes
      */
+    Route::post('admin/videos/approve')->uses('VideoController@approve')->name('admin.videos.approve');
+    Route::post('admin/videos/reject')->uses('VideoController@reject')->name('admin.videos.reject');
     Route::get('admin/videos')->uses('VideoController@index')->name('admin.videos');
+
 });
 
 if (app()->env == 'local') {
