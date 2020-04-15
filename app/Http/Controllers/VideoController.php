@@ -49,7 +49,7 @@ class VideoController extends Controller
         $video->description = $validated['description'];
         $video->keywords = $validated['keywords'];
         $video->people = $validated['people'];
-        $video->num_people = $validated['num_people'];
+        $video->num_people = $validated['people'] ? $validated['num_people'] : 0;
         $video->editorial = $validated['editorial'];
 
         $video->status = 2;
