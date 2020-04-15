@@ -41,7 +41,7 @@ class VideoController extends Controller
             'description' => ['required'],
             'keywords' => ['required'],
             'people' => ['sometimes', 'boolean'],
-            'num_of_people' => ['sometimes', 'integer'],
+            'num_people' => ['sometimes', 'integer'],
             'editorial' => ['sometimes', 'boolean'],
         ]);
         $video = Video::where('id', $validated['id'])->where('uid', $request->user()->uid)->firstOrFail();
@@ -49,7 +49,7 @@ class VideoController extends Controller
         $video->description = $validated['description'];
         $video->keywords = $validated['keywords'];
         $video->people = $validated['num_of_people'];
-        $video->num_people = $validated['num_of_people'];
+        $video->num_people = $validated['num_people'];
         $video->editorial = $validated['editorial'];
 
         $video->status = 2;

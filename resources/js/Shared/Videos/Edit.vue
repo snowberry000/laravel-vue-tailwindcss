@@ -99,8 +99,8 @@
                         </div>
                         <div class="mt-5" v-if="selected.people">
                             <text-input
-                                v-model="selected.num_of_people"
-                                :errors="$page.errors.num_of_people"
+                                v-model="selected.num_people"
+                                :errors="$page.errors.num_people"
                                 class="mt-5"
                                 label="Number of People"
                                 type="text"
@@ -109,10 +109,10 @@
                                 autocapitalize="off"
                             />
                             <div
-                                v-if="$page.errors.num_of_people"
+                                v-if="$page.errors.num_people"
                                 class="form-error"
                             >
-                                {{ $page.errors.num_of_people[0] }}
+                                {{ $page.errors.num_people[0] }}
                             </div>
                         </div>
                     </div>
