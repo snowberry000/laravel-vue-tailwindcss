@@ -60,4 +60,9 @@ class VideoController extends Controller
         return redirect()->back()->with('error', "entry {$request->title} could not be saved. try again later");
 
     }
+
+    public function docs(Request $request)
+    {
+        return view('static.videodocs');
+    }
 }

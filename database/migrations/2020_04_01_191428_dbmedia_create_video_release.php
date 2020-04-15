@@ -45,8 +45,6 @@ class DbmediaCreateVideoRelease extends Migration
             $table->dropForeign(['video_id']);
         });
 
-        });
-
         Schema::connection('media')->dropIfExists('release_video');
         Schema::connection('media')->dropIfExists('releases');
     }

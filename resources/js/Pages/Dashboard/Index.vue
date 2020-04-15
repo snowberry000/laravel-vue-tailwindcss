@@ -1,38 +1,45 @@
 <template>
     <div class="w-full">
-        <div class="w-full md:flex items-start">
-            <card title="Earnings" class="w-full md:w-1/3" v-if="!payout">
-                <table class="table table-auto w-full text-left">
-                    <thead>
-                        <tr class="border-b">
-                            <th></th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="border-b">
-                            <td class="py-2">Lifetime Earnings</td>
-                            <td class="py-2">$ {{ total.value }}</td>
-                        </tr>
-                        <tr class="border-b my-2">
-                            <td class="py-2">Last 30 days</td>
-                            <td class="py-2">$ {{ last30.value }}</td>
-                        </tr>
-                        <tr class="border-b my-2">
-                            <td class="py-2">Earnings Available</td>
-                            <td class="py-2">$ {{ available.value }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <a
-                    @click="requestPayout()"
-                    class="block border border-blue-500 text-blue-500 uppercase text-blue-500 rounded text-center p-5 m-5"
-                    >Request Payout</a
-                >
-            </card>
-            <card title="Request Payout" class="w-full md:w-1/3" v-else>
-                <payout-form @success="payout = false" :available="available" />
-            </card>
+        <div class="w-full md:flex items-stretch">
+            <div class="w-full md:w-1/3 mx-5">
+                <card title="Earnings" class="w-full" v-if="!payout">
+                    <table class="table table-auto w-full text-left">
+                        <thead>
+                            <tr class="border-b">
+                                <th></th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b">
+                                <td class="py-2">Lifetime Earnings</td>
+                                <td class="py-2">$ {{ total.value }}</td>
+                            </tr>
+                            <tr class="border-b my-2">
+                                <td class="py-2">Last 30 days</td>
+                                <td class="py-2">$ {{ last30.value }}</td>
+                            </tr>
+                            <tr class="border-b my-2">
+                                <td class="py-2">Earnings Available</td>
+                                <td class="py-2">$ {{ available.value }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a
+                        @click="requestPayout()"
+                        class="block border border-blue-500 text-blue-500 uppercase text-blue-500 rounded text-center p-5 m-5"
+                        >Request Payout</a
+                    >
+                </card>
+                <card title="Request Payout" class="w-full" v-else>
+                    <payout-form
+                        @success="payout = false"
+                        :available="available"
+                    />
+                </card>
+                <!-- <video-request class="mt-5 w-full"></video-request> -->
+            </div>
+
             <card title="Recent Downloads" class="w-full md:w-2/3">
                 <a
                     :href="route('downloads.show')"
@@ -96,12 +103,14 @@
 import Layout from "@/Shared/Layout";
 import Card from "@/Shared/Card";
 import PayoutForm from "@/Shared/PayoutForm";
+import VideoRequest from "@/Shared/Forms/VideoRequest";
 export default {
     layout: Layout,
     metaInfo: { title: "Index" },
     components: {
         Card,
-        PayoutForm
+        PayoutForm,
+        VideoRequest
     },
     props: {
         total: Object,

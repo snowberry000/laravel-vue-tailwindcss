@@ -1,6 +1,15 @@
 <template>
     <div class="flex items-start">
         <card title="Videos" :class="selected ? 'w-2/4' : 'w-full'">
+            <div class="flex">
+                <a
+                    class="btn btn-primary-outline text-sm"
+                    target="_blank"
+                    :href="route('video.docs')"
+                >
+                    Contribution Documentation
+                </a>
+            </div>
             <table-list
                 :videos="videos"
                 :status="status"

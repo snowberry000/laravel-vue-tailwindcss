@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/kyc')->uses('KycController@store')->name('kyc.store');
     Route::get('/videos')->uses('VideoController@index')->name('video.show');
     Route::post('/videos')->uses('VideoController@store')->name('video.store');
+
     Route::get('/release/{id}')->uses('ReleaseController@download')->name('release.download');
 
 });
@@ -56,6 +57,8 @@ if (app()->env == 'local') {
     Route::get('mail', 'testMailController@index');
 
 }
+
+Route::get('/documentation/videos')->uses('VideoController@docs')->name('video.docs');
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
