@@ -72,6 +72,7 @@
                         </td>
                         <td class="p-2">
                             <button
+                                v-if="video.status != 0"
                                 class="btn btn-primary"
                                 @click="setCurrent(video)"
                             >

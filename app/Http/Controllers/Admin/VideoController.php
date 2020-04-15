@@ -68,7 +68,7 @@ class VideoController extends Controller
         $validated = $request->validate([
             'videos' => ['required', 'array'],
         ]);
-        $result = Video::whereIn('id', $validated['videos'])->update(['status' => -2]);
+        $result = Video::whereIn('id', $validated['videos'])->update(['status' => -1]);
         return redirect()->back()->with('success', "{$result} videos successfully rejected.");
     }
 
