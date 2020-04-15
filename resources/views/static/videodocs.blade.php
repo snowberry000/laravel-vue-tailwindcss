@@ -91,7 +91,7 @@
                         <td class="p-2 border">example-1.mov</td>
                         <td class="p-2 border">example-1</td>
                         <td class="p-2 border">Sample entry for video</td>
-                        <td class="p-2 border">Sample entry for video description which further decribes video</td>
+                        <td class="p-2 border">Sample entry for video description which further describes video</td>
                         <td class="p-2 border">video, sample, keywords</td>
                         <td class="p-2 border">yes</td>
                         <td class="p-2 border">1</td>
