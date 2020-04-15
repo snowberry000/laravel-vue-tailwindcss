@@ -56,7 +56,7 @@
                         </div>
                     </div>
                     <div class="mt-5">
-                        <label class="form-label" for="description"
+                        <label class="form-label" for="keywords"
                             >Keywords:</label
                         >
                         <tags-input
@@ -72,9 +72,53 @@
                             {{ $page.errors.keywords[0] }}
                         </div>
                     </div>
+                    <div class="mt-5">
+                        <label class="form-label" for="editorial">
+                            <input
+                                type="checkbox"
+                                v-model="selected.editorial"
+                            />
+                            editorial
+                        </label>
+                        <div v-if="$page.errors.editorial" class="form-error">
+                            {{ $page.errors.editorial[0] }}
+                        </div>
+                    </div>
+                    <div v-if="!selected.editorial">
+                        <div class="mt-5">
+                            <label class="form-label" for="People">
+                                <input
+                                    type="checkbox"
+                                    v-model="selected.people"
+                                />
+                                Has People
+                            </label>
+                            <div v-if="$page.errors.people" class="form-error">
+                                {{ $page.errors.people[0] }}
+                            </div>
+                        </div>
+                        <div class="mt-5" v-if="selected.people">
+                            <text-input
+                                v-model="selected.num_of_people"
+                                :errors="$page.errors.num_of_people"
+                                class="mt-5"
+                                label="Number of People"
+                                type="text"
+                                autofocus
+                                placeholder="Number of People in video"
+                                autocapitalize="off"
+                            />
+                            <div
+                                v-if="$page.errors.num_of_people"
+                                class="form-error"
+                            >
+                                {{ $page.errors.num_of_people[0] }}
+                            </div>
+                        </div>
+                    </div>
                     <loading-button
                         :loading="sending"
-                        class="btn btn-primary"
+                        class="btn btn-primary mt-5"
                         type="submit"
                         :disabled="sending"
                         >{{ buttonTitle }}</loading-button
