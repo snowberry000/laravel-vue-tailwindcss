@@ -1,7 +1,7 @@
 <template>
     <card
         title="Get Pre-Approved For Video Submission"
-        v-if="$page.auth.user.video"
+        v-if="!$page.auth.user.video"
     >
         <div v-if="!submitted">
             <p class="text-sm">
