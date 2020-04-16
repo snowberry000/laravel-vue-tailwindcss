@@ -37,7 +37,7 @@
                         :available="available"
                     />
                 </card>
-                <!-- <video-request class="mt-5 w-full"></video-request> -->
+                <video-request class="mt-5 w-full"></video-request>
             </div>
 
             <card title="Recent Downloads" class="w-full md:w-2/3">

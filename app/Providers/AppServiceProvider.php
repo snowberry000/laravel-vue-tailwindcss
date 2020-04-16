@@ -53,7 +53,8 @@ class AppServiceProvider extends ServiceProvider
                         'name' => Auth::user()->name,
                         'kyc_verified_at' => Auth::user()->kyc_verified_at,
                         'email' => Auth::user()->email,
-                        'role' => Auth::user()->role,
+                        'roles' => Auth::user()->getRoleNames(),
+                        'video' => Auth::user()->video,
                     ] : null,
                 ];
             },

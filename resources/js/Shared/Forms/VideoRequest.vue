@@ -1,5 +1,8 @@
 <template>
-    <card title="Get Pre-Approved For Video Submission">
+    <card
+        title="Get Pre-Approved For Video Submission"
+        v-if="$page.auth.user.video"
+    >
         <div v-if="!submitted">
             <p class="text-sm">
                 Have a collection of videos, contact us to get more information.
@@ -16,8 +19,8 @@
                     placeholder="Submit a link to your video portfolio"
                 />
                 <text-input
-                    v-model="form.portfolio"
-                    :errors="$page.errors.portfolio"
+                    v-model="form.number_of_videos"
+                    :errors="$page.errors.number_of_videos"
                     class="mt-5"
                     label="Number of Videos"
                     type="text"
@@ -77,12 +80,18 @@ export default {
         submit: function() {
             this.sending = true;
             this.$inertia
-                .submit(route("submit.request"), this.form)
+                .post(route("video.submitrequest"), this.form)
                 .then(res => {
                     this.sending = false;
-                })
-                .catch(err => {
-                    this.sending = false;
+                    if (this.$page.errors.length) {
+                        return;
+                    }
+                    this.form = {
+                        portfolio: null,
+                        number_of_videos: null,
+                        information: null
+                    };
+                    this.submitted = true;
                 });
         }
     }

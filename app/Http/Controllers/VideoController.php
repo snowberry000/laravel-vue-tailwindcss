@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\VideoCollectionResource;
 use App\Models\Media\Video;
+use App\Notifications\VideoRequestSubmittedNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Inertia\Inertia;
 
 class VideoController extends Controller
@@ -64,5 +66,16 @@ class VideoController extends Controller
     public function docs(Request $request)
     {
         return view('static.videodocs');
+    }
+
+    public function submitrequest(Request $request)
+    {
+        $validated = $request->validate([
+            'portfolio' => ['required'],
+            'number_of_videos' => ['required'],
+            'information' => ['sometimes'],
+        ]);
+        Notification::route('mail', env('MAIL_FROM_ADDRESS'))->notify(new VideoRequestSubmittedNotification($request->user(), $validated));
+        return redirect()->back()->with('success', 'Your request was sent, we will contact you shortly.');
     }
 }
