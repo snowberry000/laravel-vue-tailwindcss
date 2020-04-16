@@ -46,10 +46,25 @@
                                 }}</a>
                             </span>
                         </td>
-                        <td class="py-2 px-1">{{ payout.memo }}</td>
+                        <td class="py-2 px-1 w-1/3">{{ payout.memo }}</td>
                         <td class="py-2 px-1">$ {{ payout.amount }}</td>
                         <td class="py-2 px-1">
-                            <a href="#" class="btn-blue block">Mark Paid</a>
+                            <inertia-link
+                                :href="
+                                    route('admin.payouts.markpaid', {
+                                        payout: payout.id
+                                    })
+                                "
+                                method="post"
+                                class="btn btn-primary text-sm"
+                                preserve-scroll
+                                v-if="!payout.paid_at"
+                            >
+                                Mark Paid
+                            </inertia-link>
+                            <span v-else class="text-sm">{{
+                                payout.paid_at
+                            }}</span>
                         </td>
                     </tr>
                 </tbody>

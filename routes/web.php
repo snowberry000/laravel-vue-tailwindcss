@@ -41,6 +41,8 @@ Route::middleware('auth')->group(function () {
 
 Route::group(['namespace' => 'Admin', 'middleware' => ['role:Admin']], function () {
     Route::get('admin/payouts')->uses('PayoutController@index')->name('admin.payouts');
+    Route::post('admin/pyouts/{payout}')->uses('PayoutController@markPaid')->name('admin.payouts.markpaid');
+    Route::post('admin/pyouts/{payout}/unpaid')->uses('PayoutController@markUnpaid')->name('admin.payouts.markunpaid');
     Route::get('kyc/{user}/confirm')->uses('KycController@confirm')->name('kyc.confirm');
     Route::post('kyc/{user}/confirm')->uses('KycController@approve')->name('kyc.approve');
     Route::get('kyc/view/{file}')->uses('KycController@file')->name('kyc.view');

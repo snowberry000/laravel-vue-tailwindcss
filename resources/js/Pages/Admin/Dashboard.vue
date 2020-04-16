@@ -1,60 +1,82 @@
 <template>
     <div class="flex items-start">
         <card title="Unpaid Payouts" class="w-full">
-            <table class="w-full text-sm table-auto">
-                <thead>
-                    <tr>
-                        <th>Request Date</th>
-                        <th>User ID</th>
-                        <th>Name</th>
-                        <th>Username</th>
-                        <th>E-mail</th>
-                        <th>Payment Details</th>
-                        <th>Amount</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr
-                        v-for="payout in payouts.data"
-                        :key="payout.id"
-                        class="border-t border-blue-500  py-2"
-                    >
-                        <td class="py-2 px-1">{{ payout.created_at }}</td>
-                        <td class="py-2 px-1">{{ payout.uid }}</td>
-                        <td class="py-2 px-1">
-                            <span v-if="payout.user">
-                                {{ payout.user.name }}
-                            </span>
-                        </td>
-                        <td class="py-2 px-1">
-                            <span v-if="payout.user">
-                                <a
-                                    target="_blank"
+            <div v-if="payouts.data.length">
+                <table class="w-full text-sm table-auto">
+                    <thead>
+                        <tr>
+                            <th>Request Date</th>
+                            <th>User ID</th>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>E-mail</th>
+                            <th>Payment Details</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            v-for="payout in payouts.data"
+                            :key="payout.id"
+                            class="border-t border-blue-500  py-2"
+                        >
+                            <td class="py-2 px-1">{{ payout.created_at }}</td>
+                            <td class="py-2 px-1">{{ payout.uid }}</td>
+                            <td class="py-2 px-1">
+                                <span v-if="payout.user">
+                                    {{ payout.user.name }}
+                                </span>
+                            </td>
+                            <td class="py-2 px-1">
+                                <span v-if="payout.user">
+                                    <a
+                                        target="_blank"
+                                        :href="
+                                            'https://yayimages.com/search?type=-1&phrase=username%3A' +
+                                                payout.user.username
+                                        "
+                                        >{{ payout.user.username }}</a
+                                    >
+                                </span>
+                            </td>
+                            <td class="py-2 px-1">
+                                <span v-if="payout.user">
+                                    <a :href="'mailto' + payout.user.email">{{
+                                        payout.user.email
+                                    }}</a>
+                                </span>
+                            </td>
+                            <td class="py-2 px-1">{{ payout.memo }}</td>
+                            <td class="py-2 px-1">$ {{ payout.amount }}</td>
+                            <td class="py-2 px-1">
+                                <inertia-link
                                     :href="
-                                        'https://yayimages.com/search?type=-1&phrase=username%3A' +
-                                            payout.user.username
+                                        route('admin.payouts.markpaid', {
+                                            payout: payout.id
+                                        })
                                     "
-                                    >{{ payout.user.username }}</a
+                                    method="post"
+                                    class="btn btn-primary text-sm"
+                                    preserve-scroll
+                                    v-if="!payout.paid_at"
                                 >
-                            </span>
-                        </td>
-                        <td class="py-2 px-1">
-                            <span v-if="payout.user">
-                                <a :href="'mailto' + payout.user.email">{{
-                                    payout.user.email
-                                }}</a>
-                            </span>
-                        </td>
-                        <td class="py-2 px-1">{{ payout.memo }}</td>
-                        <td class="py-2 px-1">$ {{ payout.amount }}</td>
-                        <td class="py-2 px-1">
-                            <a href="#" class="btn-blue block">Mark Paid</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <Pagination :links="payouts.links" />
+                                    Mark Paid
+                                </inertia-link>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <Pagination :links="payouts.links" />
+            </div>
+            <div v-else class="text-center text-lg">
+                You have no unpaid payouts. You can seee past payouts in
+                <inertia-link
+                    :href="route('admin.payouts')"
+                    class="text-blue-500"
+                    >here</inertia-link
+                >
+            </div>
         </card>
         <card title="Top Contributors" class="w-full md:w-1/3"></card>
     </div>
