@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/kyc')->uses('KycController@store')->name('kyc.store');
     Route::get('/videos')->uses('VideoController@index')->name('video.show');
     Route::post('/videos')->uses('VideoController@store')->name('video.store');
-    Route::post('/videos/request')->uses('videoController@submitrequest')->name('video.submitrequest');
+    Route::post('/videos/request')->uses('VideoController@submitrequest')->name('video.submitrequest');
     Route::get('/release/{id}')->uses('ReleaseController@download')->name('release.download');
 
 });
