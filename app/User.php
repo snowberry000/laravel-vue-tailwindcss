@@ -85,4 +85,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Media\Releases', 'uid', 'uid');
     }
+
+    public function media()
+    {
+        return $this->hasMany('App\Models\Db1\Media', 'uid', 'uid');
+    }
 }
