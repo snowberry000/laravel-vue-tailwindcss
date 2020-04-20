@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\App;
+use Inertia\Inertia;
 
 class Handler extends ExceptionHandler
 {
@@ -46,6 +48,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($request->header('X-Inertia') && $repsonse->status() == 403) {
+            return Inertia::render('login');
+            //redirect('/login');
+        }
         return parent::render($request, $exception);
     }
 }
