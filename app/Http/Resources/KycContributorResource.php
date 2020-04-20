@@ -15,6 +15,7 @@ class KycContributorResource extends JsonResource
      */
     public function toArray($request)
     {
+        $lastItem = $this->media()->orderBy('accepted_time', 'desc')->first();
         return [
             'id' => $this->id,
             'uid' => $this->uid,
@@ -32,6 +33,8 @@ class KycContributorResource extends JsonResource
             'last_payout' => $this->payouts->last() ? $this->payouts->last()->paid_at : null,
             'kycs' => $this->kycs,
             'monthsfromcreated' => $this->created_at->diffInMonths(Carbon::now()),
+            // 'imagecount' => $this->media->count(),
+            // 'lastImage' => $lastItem ? $lastItem->accepted_time : 'N/A',
         ];
         //return parent::toArray($request);
     }
