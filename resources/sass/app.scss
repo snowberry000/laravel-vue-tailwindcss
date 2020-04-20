@@ -16,3 +16,10 @@
 .tags-input span {
     @apply m-1;
 }
+
+a {
+    @apply text-blue-500;
+    &:hover {
+        @apply text-blue-700;
+    }
+}

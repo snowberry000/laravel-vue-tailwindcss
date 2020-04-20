@@ -40,18 +40,27 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::group(['namespace' => 'Admin', 'middleware' => ['role:Admin']], function () {
-    Route::get('admin/payouts')->uses('PayoutController@index')->name('admin.payouts');
-    Route::post('admin/pyouts/{payout}')->uses('PayoutController@markPaid')->name('admin.payouts.markpaid');
-    Route::post('admin/pyouts/{payout}/unpaid')->uses('PayoutController@markUnpaid')->name('admin.payouts.markunpaid');
     Route::get('kyc/{user}/confirm')->uses('KycController@confirm')->name('kyc.confirm');
     Route::post('kyc/{user}/confirm')->uses('KycController@approve')->name('kyc.approve');
     Route::get('kyc/view/{file}')->uses('KycController@file')->name('kyc.view');
-    /**
-     * Video aproval routes
-     */
-    Route::post('admin/videos/approve')->uses('VideoController@approve')->name('admin.videos.approve');
-    Route::post('admin/videos/reject')->uses('VideoController@reject')->name('admin.videos.reject');
-    Route::get('admin/videos')->uses('VideoController@index')->name('admin.videos');
+
+    Route::name('admin.')->prefix('admin')->group(function () {
+        Route::get('payouts')->uses('PayoutController@index')->name('payouts');
+        Route::post('payouts/{payout}')->uses('PayoutController@markPaid')->name('payouts.markpaid');
+        Route::post('payouts/{payout}/unpaid')->uses('PayoutController@markUnpaid')->name('payouts.markunpaid');
+        /**
+         * Video aproval routes
+         */
+        Route::post('videos/approve')->uses('VideoController@approve')->name('videos.approve');
+        Route::post('videos/reject')->uses('VideoController@reject')->name('videos.reject');
+        Route::get('videos')->uses('VideoController@index')->name('videos');
+        /**
+         * Contributors routes
+         */
+        Route::get('contributors')->uses('ContributorController@index')->name('contributors');
+        Route::get('contributors/{contributor?}')->uses('ContributorController@show')->name('contributors.show');
+        Route::post('contributors/{contributor?}/video')->uses('ContributorController@enableVideo')->name('contributors.video.enable');
+    });
 
 });
 
@@ -61,7 +70,7 @@ if (app()->env == 'local') {
 }
 
 Route::get('/documentation/videos')->uses('VideoController@docs')->name('video.docs');
-
+Route::get('/elastic')->uses('Admin\\ElasticController@index')->name('elastic.index');
 //Route::get('/home', 'HomeController@index')->name('home');
 
 // $this->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');

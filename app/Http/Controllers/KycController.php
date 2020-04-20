@@ -18,9 +18,7 @@ class KycController extends Controller
      */
     public function index(Request $request)
     {
-        return Inertia::render('Kyc/Index'
-
-        );
+        return Inertia::render('Kyc/Index');
     }
 
     public function create(Request $request)

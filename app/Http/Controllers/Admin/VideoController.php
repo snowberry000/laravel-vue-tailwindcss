@@ -37,7 +37,6 @@ class VideoController extends Controller
         $result = Inertia::render('Admin/Video/Index', [
             'perpage' => $perpage,
             'contributor' => $uid,
-            //'videos' => Video::where('status', 2)->with('user')->paginate(),
             'videos' => new VideoResourceCollection($videos),
             'contributors' => $users,
         ]);

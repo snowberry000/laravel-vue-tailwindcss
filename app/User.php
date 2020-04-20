@@ -52,7 +52,12 @@ class User extends Authenticatable
 
     public function payouts()
     {
-        return $this->hasMany('App\Payout', 'uid', 'uid');
+        return $this->hasMany('App\Payout', 'uid', 'uid')->whereNotNull('paid_at');
+    }
+
+    public function pendingPayouts()
+    {
+        return $this->hasMany('App\Payout', 'uid', 'uid')->whereNull('paid_at');
     }
 
     public function downloads()

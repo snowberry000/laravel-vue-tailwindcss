@@ -5,7 +5,7 @@ return [
         ['route' => 'admin.payouts', 'label' => 'Payouts'],
         ['route' => 'admin.videos', 'label' => 'Video Approval'],
         //['route' => 'home', 'label' => 'Downloads'],
-        //['route' => 'home', 'label' => 'Contributors'],
+        ['route' => 'admin.contributors', 'label' => 'Contributors'],
     ],
     'Contributor' => [
         ['route' => 'home', 'label' => 'Dashboard'],
