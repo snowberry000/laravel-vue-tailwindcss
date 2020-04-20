@@ -51,9 +51,9 @@ class Handler extends ExceptionHandler
         if ($request->header('X-Inertia') && $repsonse->status() == 403) {
             return Inertia::render('Auth/Login');
             //redirect('/login');
-        } else if ($response->status == 403) {
-            return redirect()->route('login');
-        }
-        return parent::render($request, $exception);
+        // } else if ($response->status == 403) {
+        //     return redirect()->route('login');
+        // }
+         return parent::render($request, $exception);
     }
 }
