@@ -26,6 +26,7 @@ class VideoResource extends JsonResource
             'people' => $this->people,
             'num_people' => $this->num_people,
             'editorial' => $this->editorial,
+            'nsfw' => $this->nsfw,
             'releases' => ReleaseResource::collection($this->releases),
             'preview' => $cdn_url . $this->file_uuid . '.mp4',
             'thumbnail' => $cdn_url . $this->file_uuid . '.0000000.jpg',

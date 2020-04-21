@@ -202,6 +202,12 @@
                                         <span> {{ release.filename }}</span></a
                                     >
                                 </li>
+                                <li class="p-1" v-if="video.editorial">
+                                    <strong>Editorial:</strong> Yes
+                                </li>
+                                <li class="p-1" v-if="video.nsfw">
+                                    <strong>NSFW:</strong> Yes
+                                </li>
                             </ul>
                         </td>
                         <td class="md:w-1/4 p-1">

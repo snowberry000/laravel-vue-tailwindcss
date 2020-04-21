@@ -84,6 +84,19 @@
                             {{ $page.errors.editorial[0] }}
                         </div>
                     </div>
+                    <div class="mt-5">
+                        <label class="form-label" for="nsfw">
+                            <input
+                                type="checkbox"
+                                id="nsfw"
+                                v-model="selected.nsfw"
+                            />
+                            NSFW (Not Safe For Work)
+                        </label>
+                        <div v-if="$page.errors.nsfw" class="form-error">
+                            {{ $page.errors.nsfw[0] }}
+                        </div>
+                    </div>
                     <div v-if="!selected.editorial">
                         <div class="mt-5">
                             <label class="form-label" for="People">
