@@ -164,7 +164,9 @@
                                 <th class="p-2 text-right">
                                     Total Downloads Value
                                 </th>
-                                <td class="p-2">${{ contributor.sales }}</td>
+                                <td class="p-2">
+                                    ${{ contributor.sales.toFixed(2) }}
+                                </td>
                             </tr>
                             <tr>
                                 <th class="p-2 text-right">
@@ -177,14 +179,16 @@
                                 <th class="p-2 text-right">
                                     Paid Out
                                 </th>
-                                <td class="p-2">${{ contributor.paidout }}</td>
+                                <td class="p-2">
+                                    ${{ contributor.paidout.toFixed(2) }}
+                                </td>
                             </tr>
                             <tr>
                                 <th class="p-2 text-right">
                                     Available for pay out
                                 </th>
                                 <td class="p-2">
-                                    ${{ contributor.available }}
+                                    ${{ contributor.available.toFixed(2) }}
                                 </td>
                             </tr>
                             <tr>
@@ -245,10 +249,12 @@ export default {
             let months = this.contributor.monthsfromcreated
                 ? this.contributor.monthsfromcreated
                 : 1;
-            return Math.round(this.contributor.sales / months);
+            let result = this.contributor.sales / months;
+            return result.toFixed(2);
         },
         downloadvalue: function() {
-            return this.contributor.sales / this.contributor.downloads;
+            var sale = this.contributor.sales / this.contributor.downloads;
+            return sale.toFixed(2);
         }
     }
 };
