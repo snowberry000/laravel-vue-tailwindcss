@@ -40,7 +40,7 @@ class ContributorController extends Controller
         $contributor->video = 1;
         if ($contributor->save()) {
             $contributor->notify(new ContributorVideoEnabledNotification($contributor));
-            return redirect()->back()->with('success', "Video upload for {$contributor->name} successfully uploaded");
+            return redirect()->back()->with('success', "Video upload for {$contributor->name} successfully enabled");
         }
     }
 }
