@@ -8,6 +8,7 @@ use App\Notifications\VideoRequestSubmittedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Inertia\Inertia;
+use stdClass;
 
 class VideoController extends Controller
 {
@@ -31,6 +32,14 @@ class VideoController extends Controller
                     ->paginate();
                 return new VideoCollectionResource($videos);
             },
+            'releases' => function () use ($request) {
+                return $request->user()->releases()->orderBy('name')->get()->transform(function ($item, $key) {
+                    $result = new stdClass();
+                    $result->key = $item->id;
+                    $result->value = $item->name;
+                    return $result;
+                });
+            },
             'status' => function () use ($status) {return $status;},
         ]);
     }
@@ -46,6 +55,7 @@ class VideoController extends Controller
             'num_people' => ['sometimes', 'integer'],
             'editorial' => ['sometimes', 'boolean'],
             'nsfw' => ['sometimes', 'boolean'],
+            'releases' => ['sometimes', 'array'],
         ]);
         $video = Video::where('id', $validated['id'])->where('uid', $request->user()->uid)->firstOrFail();
         $video->title = $validated['title'];
@@ -59,6 +69,9 @@ class VideoController extends Controller
         $video->status = 2;
 
         if ($video->save()) {
+            if ($validated['releases'] || $video->releases) {
+                $video->attachReleases($validated['releases']);
+            }
             return redirect()->back()->with('success', "entry {$request->title} successfully saved.");
         }
         return redirect()->back()->with('error', "entry {$request->title} could not be saved. try again later");

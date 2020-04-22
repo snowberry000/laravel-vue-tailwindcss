@@ -14,6 +14,7 @@
                 :videos="videos"
                 :status="status"
                 :currentStatus="currentStatus"
+                :releases="releases"
             ></table-list>
             <Pagination :links="videos.links" />
         </card>
@@ -37,6 +38,7 @@ export default {
     props: {
         videos: Object,
         status: Object,
+        releases: Array,
         currentStatus: String
     },
     data: function() {

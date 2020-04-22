@@ -18,17 +18,29 @@
                 />
             </svg>
         </button>
-        <div class="overflow-y-auto md:max-h-full">
-            <div class="border-b py-2">
-                <video-player
-                    v-if="selected"
-                    :src="selected.preview"
-                    :poster="selected.thumbnail"
-                    :id="selected.file_uuid"
-                />
-            </div>
-            <div class="border-b py-2">
-                <form @submit.prevent="submit">
+
+        <div class="overflow-y-auto md:max-h-full pb-20">
+            <form @submit.prevent="submit">
+                <div
+                    class="w-full absolute bottom-0 left-0 right-0 bg-white shadow p-2 z-10 border-t border-blue-500"
+                >
+                    <loading-button
+                        :loading="sending"
+                        class="btn btn-primary"
+                        type="submit"
+                        :disabled="sending"
+                        >{{ buttonTitle }}</loading-button
+                    >
+                </div>
+                <div class="border-b py-2">
+                    <video-player
+                        v-if="selected"
+                        :src="selected.preview"
+                        :poster="selected.thumbnail"
+                        :id="selected.file_uuid"
+                    />
+                </div>
+                <div class="border-b py-2">
                     <text-input
                         v-model="selected.title"
                         :errors="$page.errors.title"
@@ -128,20 +140,35 @@
                                 {{ $page.errors.num_people[0] }}
                             </div>
                         </div>
+                        <div class="mt-5">
+                            <label class="form-label" for="releases"
+                                >Releases:</label
+                            >
+                            <tags-input
+                                element-id="releases"
+                                v-model="selected.releases"
+                                placeholder="Add Releases"
+                                typeahead
+                                typeahead-show-on-focus
+                                typeahead-style="dropdown"
+                                :existing-tags="releases"
+                                only-existing-tags
+                                :class="{ error: $page.errors.releases }"
+                            ></tags-input>
+                            <div
+                                v-if="$page.errors.releases"
+                                class="form-error"
+                            >
+                                {{ $page.errors.releases[0] }}
+                            </div>
+                        </div>
                     </div>
-                    <loading-button
-                        :loading="sending"
-                        class="btn btn-primary mt-5"
-                        type="submit"
-                        :disabled="sending"
-                        >{{ buttonTitle }}</loading-button
-                    >
-                </form>
-            </div>
-            <div class="border-b py-2">
-                <h3 class="font-bold mb-2">Video MetaInformation</h3>
-                <video-metainfo :video="selected" display-title />
-            </div>
+                </div>
+                <div class="border-b py-2">
+                    <h3 class="font-bold mb-2">Video MetaInformation</h3>
+                    <video-metainfo :video="selected" display-title />
+                </div>
+            </form>
         </div>
     </div>
 </template>
@@ -160,7 +187,7 @@ export default {
         TagsInput: VoerroTagsInput,
         TextInput
     },
-    props: ["selected"],
+    props: ["selected", "releases"],
     data: function() {
         return {
             sending: false

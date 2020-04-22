@@ -16,6 +16,8 @@ class ReleaseResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'key' => $this->id,
+            'value' => $this->name,
             'file_uuid' => $this->file_uuid,
             'name' => $this->name,
             'filename' => $this->filename,

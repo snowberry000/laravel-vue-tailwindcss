@@ -54,6 +54,15 @@ class Video extends Model
         return $this->belongsToMany('App\Models\Media\Release');
     }
 
+    public function attachReleases(array $releases)
+    {
+        $keys = [];
+        foreach ($releases as $release) {
+            $keys[] = $release['key'];
+        }
+        $this->releases()->sync($keys);
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User', 'uid', 'uid');

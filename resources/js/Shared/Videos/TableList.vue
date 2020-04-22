@@ -83,7 +83,12 @@
                 </tbody>
             </table>
         </div>
-        <edit-form v-if="current" :selected="current" @close="current = null" />
+        <edit-form
+            v-if="current"
+            :selected="current"
+            :releases="releases"
+            @close="current = null"
+        />
     </div>
 </template>
 
@@ -109,6 +114,9 @@ export default {
         },
         currentStatus: {
             default: null
+        },
+        releases: {
+            type: Array
         }
     },
     methods: {
