@@ -20,7 +20,11 @@
                 />
             </svg>
         </button>
-        <video-player v-if="src" :poster="video.thumbnail" :src="src" />
+        <video-player
+            v-if="video.preview"
+            :poster="video.thumbnail"
+            :src="src"
+        />
     </div>
 </template>
 
@@ -31,12 +35,12 @@ export default {
         VideoPlayer
     },
     props: ["video"],
-    watch: {
-        video: function(n, o) {
-            if (!n) return;
-            this.getVideo();
-        }
-    },
+    // watch: {
+    //     video: function(n, o) {
+    //         if (!n) return;
+    //         this.getVideo();
+    //     }
+    // },
     data: function() {
         return {
             src: null
