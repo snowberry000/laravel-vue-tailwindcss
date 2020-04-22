@@ -83,7 +83,7 @@ class User extends Authenticatable
 
     public function releases()
     {
-        return $this->hasMany('App\Models\Media\Releases', 'uid', 'uid');
+        return $this->hasMany('App\Models\Media\Release', 'uid', 'uid');
     }
 
     public function media()
