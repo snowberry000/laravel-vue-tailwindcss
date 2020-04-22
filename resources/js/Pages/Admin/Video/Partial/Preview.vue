@@ -23,7 +23,7 @@
         <video-player
             v-if="video.preview"
             :poster="video.thumbnail"
-            :src="src"
+            :src="video.preview"
         />
     </div>
 </template>
@@ -35,12 +35,6 @@ export default {
         VideoPlayer
     },
     props: ["video"],
-    // watch: {
-    //     video: function(n, o) {
-    //         if (!n) return;
-    //         this.getVideo();
-    //     }
-    // },
     data: function() {
         return {
             src: null
@@ -51,7 +45,7 @@ export default {
             this.$http
                 .get("/api/video/full/" + this.video.file_uuid)
                 .then(res => {
-                    this.src = res.data.src;
+                    this.src = this.video.preview;
                 });
         },
         close: function() {
