@@ -22,9 +22,9 @@ class CreateMediaVideosTable extends Migration
             $table->text('title')->nullable();
             $table->longText('description')->nullable();
             $table->text('keywords')->nullable();
-            $table->boolean('people')->nullable();
+            $table->boolean('people')->default(false);
             $table->unsignedInteger('num_people')->nullable();
-            $table->boolean('editorial')->nullable();
+            $table->boolean('editorial')->default(false);
             $table->string('codec')->nullable();
             $table->unsignedInteger('width')->nullable();
             $table->unsignedInteger('height')->nullable();
