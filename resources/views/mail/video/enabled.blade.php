@@ -33,7 +33,7 @@ property released to to do so upload your media/property releases into releases 
 yourself on sftp server.
 4. Check contributors.yayimages.com/videos whether your files have been processed.
 5. After you files were processed proceed with uploading meta information csv file. see the sample file
-attached [here]({{asset('meta-sample.xlsx')}})
+attached [here]({{asset('sample/meta-sample.xlsx')}})
 
 Please visit [{{url('/')}}]({{url('/')}}) to learn more & being uploading.  
 
