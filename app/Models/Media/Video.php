@@ -22,18 +22,18 @@ class Video extends Model
     {
         $result = [];
         foreach ($keywords as $keyword) {
-            $result[] = $keyword['value'];
+            $result[] = strtolower(trim($keyword['value']));
         }
-        $this->attributes['keywords'] = implode(', ', $result);
+        $this->attributes['keywords'] = implode(',', $result);
     }
 
     public function getKeywordsAttribute($keywords)
     {
-        $keywords = explode(', ', $keywords);
+        $keywords = explode(',', $keywords);
         $result = [];
         foreach ($keywords as $keyword) {
             if (!empty($keyword)) {
-                $result[] = ['key' => '', 'value' => $keyword];
+                $result[] = ['key' => '', 'value' => trim($keyword)];
             }
         }
         return empty($result) ? null : $result;
@@ -41,7 +41,7 @@ class Video extends Model
 
     public function getRawkeywordsAttribute()
     {
-        $result = explode(', ', $this->attributes['keywords']);
+        $result = explode(',', $this->attributes['keywords']);
         if (empty($result[0])) {
             return [];
         }
