@@ -7,6 +7,14 @@
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
     <script src="{{ mix('/js/app.js') }}" defer></script>
     @routes
+
+    {{-- Inertia --}}
+    {{-- <script
+        src="https://polyfill.io/v3/polyfill.min.js?features=smoothscroll,NodeList.prototype.forEach,Promise,Object.values,Object.assign"
+        defer></script>
+
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=String.prototype.startsWith" defer></script> --}}
     <!-- Google Tag Manager -->
     <script>
         (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

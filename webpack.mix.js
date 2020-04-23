@@ -2,6 +2,7 @@ const mix = require("laravel-mix");
 const tailwindcss = require("tailwindcss");
 const autoprefixer = require("autoprefixer");
 require("laravel-mix-purgecss");
+require("laravel-mix-polyfill");
 
 /*
  |--------------------------------------------------------------------------
@@ -34,5 +35,11 @@ if (!mix.inProduction()) {
     mix.sourceMaps();
 }
 if (mix.inProduction()) {
-    mix.purgeCss().version();
+    mix.purgeCss()
+        .polyfill({
+            enabled: true,
+            useBuiltIns: "usage",
+            targets: { firefox: "50", ie: 11 }
+        })
+        .version();
 }
