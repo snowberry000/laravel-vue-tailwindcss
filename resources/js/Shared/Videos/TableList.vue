@@ -58,9 +58,9 @@
                                 <li
                                     class="p-1 m-1 block border rounded text-blue-500 border-blue-500"
                                     v-for="keyword in video.keywords"
-                                    :key="keyword"
+                                    :key="keyword.key"
                                 >
-                                    {{ keyword }}
+                                    {{ keyword.value }}
                                 </li>
                             </ul>
                         </td>
