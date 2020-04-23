@@ -53,7 +53,7 @@
                             >
                             <ul
                                 class="list-none flex flex-wrap p-1 text-xs"
-                                v-if="video.keywords.length > 0"
+                                v-if="video.keywords"
                             >
                                 <li
                                     class="p-1 m-1 block border rounded text-blue-500 border-blue-500"
