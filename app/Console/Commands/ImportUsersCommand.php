@@ -41,16 +41,12 @@ class ImportUsersCommand extends Command
      */
     public function handle()
     {
-
-        $r = DB::table('downloads')->select('downloads.uid')->leftJoin('users', 'downloads.uid', 'users.uid')->whereNull('users.uid')->groupBy('downloads.uid')->get();
-        //dd($r->pluck('uid')->toArray());
         $last_imported_user = User::orderBy('uid', 'desc')->first();
         $uid = isset($last_imported_user) ? $last_imported_user->uid : 0;
         $users = DB::connection('db1')->table('users')
-            ->whereIn('uid', $r->pluck('uid')->toArray())
-        //->where('uid', '>', $uid)
-        //->where('roles', 3)
-        //->where('email_confirmed', true)
+            ->where('uid', '>', $uid)
+            ->where('roles', 3)
+            ->where('email_confirmed', true)
             ->whereNull('delete_info')
             ->orderBy('uid', 'asc')
             ->chunk(100, function ($users) {
