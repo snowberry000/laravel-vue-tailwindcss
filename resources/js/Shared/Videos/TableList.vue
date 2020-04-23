@@ -51,6 +51,18 @@
                                 v-if="video.description"
                                 >{{ video.description }}</small
                             >
+                            <ul
+                                class="list-none flex flex-wrap p-1 text-xs"
+                                v-if="video.keywords.length > 0"
+                            >
+                                <li
+                                    class="p-1 m-1 block border rounded text-blue-500 border-blue-500"
+                                    v-for="keyword in video.keywords"
+                                    :key="keyword"
+                                >
+                                    {{ keyword }}
+                                </li>
+                            </ul>
                         </td>
                         <td class="p-2">
                             <ul v-if="video.releases.length" class="list-none">
