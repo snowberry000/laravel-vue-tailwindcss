@@ -1,7 +1,7 @@
 <template>
     <div
         v-if="selected"
-        class="fixed min-h-screen md:min-h-0 md:max-h-screen bottom-0 top-0 right-0 w-full md:w-2/4 bg-white shadow-2xl p-5 md:my-12 z-50 block"
+        class="fixed min-h-screen md:min-h-0 md:max-h-screen bottom-0 top-0 right-0 w-full md:w-3/4 bg-white shadow-2xl p-5 md:my-12 z-50 block text-sm"
     >
         <button
             @click="closeSelected"
@@ -32,141 +32,181 @@
                         >{{ buttonTitle }}</loading-button
                     >
                 </div>
-                <div class="border-b py-2">
-                    <video-player
-                        v-if="selected"
-                        :src="selected.preview"
-                        :poster="selected.thumbnail"
-                        :id="selected.file_uuid"
-                    />
-                </div>
-                <div class="border-b py-2">
-                    <text-input
-                        v-model="selected.title"
-                        :errors="$page.errors.title"
-                        class="mt-5"
-                        label="Title"
-                        type="text"
-                        autofocus
-                        placeholder="Video Title"
-                        autocapitalize="off"
-                    />
-                    <div class="mt-5">
-                        <label class="form-label" for="description"
-                            >Description:</label
-                        >
-                        <textarea
-                            v-model="selected.description"
-                            id="description"
-                            class="form-input"
-                            placeholder="Add video description."
-                            :class="{ error: $page.errors.description }"
-                        >
-                        </textarea>
-                        <div v-if="$page.errors.description" class="form-error">
-                            {{ $page.errors.description[0] }}
-                        </div>
-                    </div>
-                    <div class="mt-5">
-                        <label class="form-label" for="keywords"
-                            >Keywords:</label
-                        >
-                        <tags-input
-                            element-id="keywords"
-                            v-model="selected.keywords"
-                            placeholder="Add Keywords"
-                            :limit="50"
-                            add-tags-on-blur
-                            add-tags-on-comma
-                            :class="{ error: $page.errors.keywords }"
-                        ></tags-input>
-                        <div v-if="$page.errors.keywords" class="form-error">
-                            {{ $page.errors.keywords[0] }}
-                        </div>
-                    </div>
-                    <div class="mt-5">
-                        <label class="form-label" for="editorial">
-                            <input
-                                type="checkbox"
-                                v-model="selected.editorial"
+                <div class="flex">
+                    <div class="md:w-1/2 md:px-5">
+                        <div class="border-b py-2">
+                            <video-player
+                                v-if="selected"
+                                :src="selected.preview"
+                                :poster="selected.thumbnail"
+                                :id="selected.file_uuid"
                             />
-                            editorial
-                        </label>
-                        <div v-if="$page.errors.editorial" class="form-error">
-                            {{ $page.errors.editorial[0] }}
+                        </div>
+                        <div class="border-b py-2">
+                            <h3 class="font-bold mb-2">
+                                Video MetaInformation
+                            </h3>
+                            <video-metainfo :video="selected" display-title />
                         </div>
                     </div>
-                    <div class="mt-5">
-                        <label class="form-label" for="nsfw">
-                            <input
-                                type="checkbox"
-                                id="nsfw"
-                                v-model="selected.nsfw"
-                            />
-                            NSFW (Not Safe For Work)
-                        </label>
-                        <div v-if="$page.errors.nsfw" class="form-error">
-                            {{ $page.errors.nsfw[0] }}
-                        </div>
-                    </div>
-                    <div v-if="!selected.editorial">
-                        <div class="mt-5">
-                            <label class="form-label" for="People">
-                                <input
-                                    type="checkbox"
-                                    v-model="selected.people"
-                                />
-                                Has People
-                            </label>
-                            <div v-if="$page.errors.people" class="form-error">
-                                {{ $page.errors.people[0] }}
-                            </div>
-                        </div>
-                        <div class="mt-5" v-if="selected.people">
+                    <div class="md:w-1/2 md:px-5">
+                        <div class="py-2">
                             <text-input
-                                v-model="selected.num_people"
-                                :errors="$page.errors.num_people"
+                                v-model="selected.title"
+                                :errors="$page.errors.title"
                                 class="mt-5"
-                                label="Number of People"
+                                label="Title"
                                 type="text"
                                 autofocus
-                                placeholder="Number of People in video"
+                                placeholder="Video Title"
                                 autocapitalize="off"
                             />
+                        </div>
+                        <div class="mt-5">
+                            <label class="form-label" for="description"
+                                >Description:</label
+                            >
+                            <textarea
+                                v-model="selected.description"
+                                id="description"
+                                class="form-input"
+                                placeholder="Add video description."
+                                :class="{ error: $page.errors.description }"
+                            >
+                            </textarea>
                             <div
-                                v-if="$page.errors.num_people"
+                                v-if="$page.errors.description"
                                 class="form-error"
                             >
-                                {{ $page.errors.num_people[0] }}
+                                {{ $page.errors.description[0] }}
                             </div>
                         </div>
                         <div class="mt-5">
-                            <label class="form-label" for="releases"
-                                >Releases:</label
+                            <label class="form-label" for="keywords"
+                                >Keywords:</label
                             >
                             <tags-input
-                                element-id="releases"
-                                v-model="selected.releases"
-                                placeholder="Add Releases"
-                                typeahead
-                                typeahead-show-on-focus
-                                typeahead-style="dropdown"
-                                :existing-tags="releases"
-                                only-existing-tags
-                                :class="{ error: $page.errors.releases }"
+                                element-id="keywords"
+                                v-model="selected.keywords"
+                                placeholder="Add Keywords"
+                                :limit="50"
+                                add-tags-on-blur
+                                add-tags-on-comma
+                                :class="{ error: $page.errors.keywords }"
                             ></tags-input>
                             <div
-                                v-if="$page.errors.releases"
+                                v-if="$page.errors.keywords"
                                 class="form-error"
                             >
-                                {{ $page.errors.releases[0] }}
+                                {{ $page.errors.keywords[0] }}
+                            </div>
+                            <small class="pt-1 text-xs text-gray-600 block"
+                                >Enter keywords describing your video, can not
+                                contain username (max. 50).</small
+                            >
+                        </div>
+                        <div class="mt-5">
+                            <label class="form-label" for="editorial">
+                                <input
+                                    type="checkbox"
+                                    v-model="selected.editorial"
+                                />
+                                editorial
+                            </label>
+                            <div
+                                v-if="$page.errors.editorial"
+                                class="form-error"
+                            >
+                                {{ $page.errors.editorial[0] }}
+                            </div>
+                            <small class="pt-1 text-xs text-gray-600 block"
+                                >Should be selected if the footage is
+                                newsworthy.</small
+                            >
+                        </div>
+                        <div class="mt-5">
+                            <label class="form-label" for="nsfw">
+                                <input
+                                    type="checkbox"
+                                    id="nsfw"
+                                    v-model="selected.nsfw"
+                                />
+                                NSFW (Not Safe For Work)
+                            </label>
+                            <div v-if="$page.errors.nsfw" class="form-error">
+                                {{ $page.errors.nsfw[0] }}
+                            </div>
+                        </div>
+                        <div v-if="!selected.editorial">
+                            <div class="mt-5">
+                                <label class="form-label" for="People">
+                                    <input
+                                        type="checkbox"
+                                        v-model="selected.people"
+                                    />
+                                    Has People
+                                </label>
+                                <div
+                                    v-if="$page.errors.people"
+                                    class="form-error"
+                                >
+                                    {{ $page.errors.people[0] }}
+                                </div>
+                                <small class="pt-1 text-xs text-gray-600 block"
+                                    >Select only when people in video are model
+                                    released.</small
+                                >
+                            </div>
+                            <div class="mt-5" v-if="selected.people">
+                                <text-input
+                                    v-model="selected.num_people"
+                                    :errors="$page.errors.num_people"
+                                    class="mt-5"
+                                    label="Number of People"
+                                    type="text"
+                                    autofocus
+                                    placeholder="Number of People in video"
+                                    autocapitalize="off"
+                                />
+                                <div
+                                    v-if="$page.errors.num_people"
+                                    class="form-error"
+                                >
+                                    {{ $page.errors.num_people[0] }}
+                                </div>
+                                <small class="pt-1 text-xs text-gray-600 block"
+                                    >Please enter the number of people in the
+                                    video which are model released.</small
+                                >
+                            </div>
+                            <div class="mt-5">
+                                <label class="form-label" for="releases"
+                                    >Releases:</label
+                                >
+                                <tags-input
+                                    element-id="releases"
+                                    v-model="selected.releases"
+                                    placeholder="Add Releases"
+                                    typeahead
+                                    typeahead-show-on-focus
+                                    typeahead-style="dropdown"
+                                    :existing-tags="releases"
+                                    only-existing-tags
+                                    :class="{ error: $page.errors.releases }"
+                                ></tags-input>
+                                <div
+                                    v-if="$page.errors.releases"
+                                    class="form-error"
+                                >
+                                    {{ $page.errors.releases[0] }}
+                                </div>
+                                <small class="pt-1 text-xs text-gray-600 block"
+                                    >To attach releases they first should be
+                                    uploaded.</small
+                                >
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="border-b py-2">
-                    <h3 class="font-bold mb-2">Video MetaInformation</h3>
-                    <video-metainfo :video="selected" display-title />
                 </div>
             </form>
         </div>
