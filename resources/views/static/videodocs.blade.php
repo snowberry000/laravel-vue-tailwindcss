@@ -68,7 +68,8 @@
                 <li class="mb-1">
                     After you files were processed proceed with uploading meta information <strong
                         class="font-bold">csv</strong> file. see the sample file
-                    attached <a class="text-blue-500" href="{{asset('sample/meta-sample.xlsx')}}">here</a>
+                    attached <a class="text-blue-500" href="{{asset('sample/meta-sample.xlsx')}}">here</a>.
+                    You can upload the csv files directly into root folder in SFTP.
                 </li>
             </ol>
             <table class="my-5 text-xs table table-auto w-100" colpadding="1">
