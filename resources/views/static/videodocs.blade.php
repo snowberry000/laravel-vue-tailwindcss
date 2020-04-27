@@ -50,7 +50,7 @@
                 <li class="mb-1">
                     Login to our sftp server at <storng class="font-bold">sftp://intake.yayimages.com</storng> on port
                     22 using
-                    your <strong class="font-bold">Username</strong> and password, drag and drop your
+                    your <strong class="font-bold">Username</strong> (not e-mail) and password, drag and drop your
                     video files to get them uploaded.
                 </li>
                 <li class="mb-1">

@@ -26,7 +26,9 @@ Media/Property releases should be submitted as jpeg files, and should be readabl
 
 ## USING SFTP FOR UPLOADING VIDEO
 1. Get your account approved for video submission, by filling out the form in your contributor dashboard.
-2. Login to our sftp server at sftp://intake.yayimages.com using your yayimages username and password, drag and
+2. Login to our sftp server at sftp://intake.yayimages.com on port number 22 using your yayimages username (not e-mail)
+and password,
+drag and
 drop your video files to get them uploaded.
 3. If your videos have people in them your videos need to be media released, in some cases your videos also need to be
 property released to to do so upload your media/property releases into releases folder, you can create the folder
