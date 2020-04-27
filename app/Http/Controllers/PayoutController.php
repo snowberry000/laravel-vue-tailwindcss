@@ -18,7 +18,7 @@ class PayoutController extends Controller
 
         $unpaidDownloads = $user->unpaidDownloads();
         $amount = $unpaidDownloads->sum('value') / 2;
-        if ($amount == 0 || $amount < 30) {
+        if ($amount == 0 || $amount < 60) {
             return redirect()->back()->with('success', 'You have not enough funds to withdraw.');
         }
         DB::beginTransaction();

@@ -5,7 +5,7 @@
                 class="font-bold text-red-500 text-center mb-2"
                 v-if="!aboveTreshold"
             >
-                Minimum payout amount is $30.
+                Minimum payout amount is $60.
             </p>
             <p>
                 We can payout to your Paypal account.
@@ -66,7 +66,7 @@ export default {
     },
     computed: {
         aboveTreshold: function() {
-            return Number(this.available.value) >= 30;
+            return Number(this.available.value) >= 60;
         }
     },
     data: function() {
