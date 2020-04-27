@@ -48,9 +48,9 @@
                     dashboard.
                 </li>
                 <li class="mb-1">
-                    Login to our sftp server at <storng class="font-bold">sftp://intake.yayimages.com</storng> using
-                    your contributors
-                    portal credentials, drag and drop your
+                    Login to our sftp server at <storng class="font-bold">sftp://intake.yayimages.com</storng> on port
+                    22 using
+                    your <strong class="font-bold">Username</strong> and password, drag and drop your
                     video files to get them uploaded.
                 </li>
                 <li class="mb-1">
@@ -69,7 +69,7 @@
                     After you files were processed proceed with uploading meta information <strong
                         class="font-bold">csv</strong> file. see the sample file
                     attached <a class="text-blue-500" href="{{asset('sample/meta-sample.xlsx')}}">here</a>.
-                    You can upload the csv files directly into root folder in SFTP.
+                    You can upload the csv files directly into into SFTP server.
                 </li>
             </ol>
             <table class="my-5 text-xs table table-auto w-100" colpadding="1">
