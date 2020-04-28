@@ -15,6 +15,7 @@ class VideoController extends Controller
     public function index(Request $request)
     {
         $status = [
+            -2 => 'error',
             -1 => 'rejected',
             0 => 'processing',
             1 => 'processed',
